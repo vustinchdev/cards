@@ -25,7 +25,7 @@ export const Checkbox = ({
   return (
     <form>
       <div className={`${s.container} ${className}`}>
-        <div className={s.buttonWrapper}>
+        <div className={`${s.buttonWrapper} ${disabled ? s.disabled : ''}`}>
           <CheckboxRadix.Root
             checked={checked}
             className={s.root}
@@ -40,7 +40,7 @@ export const Checkbox = ({
           </CheckboxRadix.Root>
         </div>
         {label && (
-          <label className={s.label} htmlFor={id}>
+          <label className={`${s.label} ${disabled ? s.disabledLabel : ''}`} htmlFor={id}>
             {label}
           </label>
         )}
