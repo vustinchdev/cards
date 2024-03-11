@@ -1,5 +1,6 @@
 import { CheckboxIndicatorIcon } from '@/assets/icons'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
+import clsx from 'clsx'
 
 import s from './checkbox.module.scss'
 
@@ -22,10 +23,17 @@ export const Checkbox = ({
   onChange,
   required,
 }: CheckboxProps) => {
+  const classNames = {
+    buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled),
+    container: clsx(s.container, className),
+    indicator: clsx(s.indicator),
+    label: clsx(s.label, disabled && s.disabledLabel),
+  }
+
   return (
     <form>
-      <div className={`${s.container} ${className}`}>
-        <div className={`${s.buttonWrapper} ${disabled ? s.disabled : ''}`}>
+      <div className={classNames.container}>
+        <div className={classNames.buttonWrapper}>
           <CheckboxRadix.Root
             checked={checked}
             className={s.root}
@@ -34,13 +42,13 @@ export const Checkbox = ({
             onCheckedChange={onChange}
             required={required}
           >
-            <CheckboxRadix.Indicator className={s.indicator}>
+            <CheckboxRadix.Indicator className={classNames.indicator}>
               <CheckboxIndicatorIcon />
             </CheckboxRadix.Indicator>
           </CheckboxRadix.Root>
         </div>
         {label && (
-          <label className={`${s.label} ${disabled ? s.disabledLabel : ''}`} htmlFor={id}>
+          <label className={classNames.label} htmlFor={id}>
             {label}
           </label>
         )}
