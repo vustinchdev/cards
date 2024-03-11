@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
 import { BackArrowIcon } from '@/assets/icons'
+import clsx from 'clsx'
 
 import s from './button.module.scss'
 
@@ -24,8 +25,12 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     ...rest
   } = props
 
+  const classNames = {
+    root: clsx(s[variant], fullWidth && s.fullWidth, className),
+  }
+
   return (
-    <Component className={`${s[variant]} ${fullWidth ? s.fullWidth : ''} ${className}`} {...rest}>
+    <Component className={classNames.root} {...rest}>
       {back && <BackArrowIcon />} {children}
     </Component>
   )
