@@ -1,5 +1,8 @@
 import { ArrowLeftIcon } from '@/assets/icons/arrowLeft'
 import { ArrowRightIcon } from '@/assets/icons/arrowRight'
+import clsx from 'clsx'
+
+import s from './pagination.module.scss'
 
 import { usePagination } from './usePagination'
 
@@ -27,23 +30,46 @@ export const Pagination = ({
       totalItemsCount,
     })
 
+  const classNames = {
+    arrowButton: clsx(s.arrowButton),
+    container: clsx(s.container),
+    dots: clsx(s.dots),
+    pageButton: (page: number) => clsx(s.pageButton, { [s.selected]: currentPage === page }),
+  }
+
   return (
-    <div>
-      <button disabled={currentPage === 1} onClick={handlePreviosPage}>
+    <div className={classNames.container}>
+      <button
+        className={classNames.arrowButton}
+        disabled={currentPage === 1}
+        onClick={handlePreviosPage}
+      >
         <ArrowLeftIcon />
       </button>
       {paginationRange.map((page, index) => {
         if (typeof page !== 'number') {
-          return <span key={index}>&#8230;</span>
+          return (
+            <span className={classNames.dots} key={index}>
+              &#8230;
+            </span>
+          )
         }
 
         return (
-          <button key={index} onClick={handlePageChange(page)}>
+          <button
+            className={classNames.pageButton(page)}
+            key={index}
+            onClick={handlePageChange(page)}
+          >
             {page}
           </button>
         )
       })}
-      <button disabled={currentPage === lastPage} onClick={handleNextPage}>
+      <button
+        className={classNames.arrowButton}
+        disabled={currentPage === lastPage}
+        onClick={handleNextPage}
+      >
         <ArrowRightIcon />
       </button>
     </div>
