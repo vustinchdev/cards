@@ -1,5 +1,4 @@
-import { ArrowLeftIcon } from '@/assets/icons/arrowLeft'
-import { ArrowRightIcon } from '@/assets/icons/arrowRight'
+import { ArrowIcon } from '@/assets/icons'
 import clsx from 'clsx'
 
 import s from './pagination.module.scss'
@@ -34,6 +33,7 @@ export const Pagination = ({
     arrowButton: clsx(s.arrowButton),
     container: clsx(s.container),
     dots: clsx(s.dots),
+    iconRight: clsx(s.iconRight),
     pageButton: (page: number) => clsx(s.pageButton, { [s.selected]: currentPage === page }),
   }
 
@@ -44,7 +44,7 @@ export const Pagination = ({
         disabled={currentPage === 1}
         onClick={handlePreviosPage}
       >
-        <ArrowLeftIcon />
+        <ArrowIcon />
       </button>
       {paginationRange.map((page, index) => {
         if (typeof page !== 'number') {
@@ -70,7 +70,7 @@ export const Pagination = ({
         disabled={currentPage === lastPage}
         onClick={handleNextPage}
       >
-        <ArrowRightIcon />
+        <ArrowIcon className={classNames.iconRight} />
       </button>
     </div>
   )
