@@ -8,14 +8,20 @@ import s from './select.module.scss'
 
 import { Typography } from '../typography'
 
+export type SelectOption = {
+  title: string
+  value: string
+}
+
 type SelectProps = {
   className?: string
   label?: string
+  options?: SelectOption[]
   placeholder?: string
 } & ComponentPropsWithoutRef<typeof SelectPrimitive.Root>
 
 export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, SelectProps>(
-  ({ children, className, disabled, label, placeholder, ...rest }, ref) => {
+  ({ children, className, disabled, label, options, placeholder, ...rest }, ref) => {
     const classNames = {
       content: s.content,
       icon: s.icon,
@@ -23,6 +29,12 @@ export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, Select
       label: clsx(label, disabled && s.disabledLabel),
       trigger: s.trigger,
     }
+
+    const selectOptions = options?.map(option => (
+      <SelectItem key={option.value} value={option.value}>
+        {option.title}
+      </SelectItem>
+    ))
 
     return (
       <div className={className}>
@@ -43,7 +55,7 @@ export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, Select
               side={'bottom'}
             >
               <SelectPrimitive.Viewport>
-                <SelectPrimitive.Group>{children}</SelectPrimitive.Group>
+                <SelectPrimitive.Group>{selectOptions}</SelectPrimitive.Group>
               </SelectPrimitive.Viewport>
             </SelectPrimitive.Content>
           </SelectPrimitive.Portal>

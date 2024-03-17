@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Select, SelectItem } from './'
+import { Select } from './'
 
 const meta = {
   argTypes: {},
@@ -12,19 +12,22 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const selectOptions = [
+  { title: 'Option 1', value: 'option1' },
+  { title: 'Option 2', value: 'option2' },
+  { title: 'Option 3', value: 'option3' },
+]
+
 export const SelectDefault: Story = {
   args: {
     label: 'Select',
+    options: selectOptions,
     placeholder: 'select oprions',
   },
   render: args => {
     return (
       <div style={{ width: '210px' }}>
-        <Select {...args}>
-          <SelectItem value={'option1'}>{'oprion1'}</SelectItem>
-          <SelectItem value={'option2'}>{'oprion2'}</SelectItem>
-          <SelectItem value={'option3'}>{'oprion3'}</SelectItem>
-        </Select>
+        <Select {...args} />
       </div>
     )
   },
@@ -34,16 +37,13 @@ export const SelectDisabled: Story = {
   args: {
     disabled: true,
     label: 'Select',
+    options: selectOptions,
     placeholder: 'select oprions',
   },
   render: args => {
     return (
       <div style={{ width: '210px' }}>
-        <Select {...args}>
-          <SelectItem value={'option1'}>{'oprion1'}</SelectItem>
-          <SelectItem value={'option2'}>{'oprion2'}</SelectItem>
-          <SelectItem value={'option3'}>{'oprion3'}</SelectItem>
-        </Select>
+        <Select {...args} />
       </div>
     )
   },
