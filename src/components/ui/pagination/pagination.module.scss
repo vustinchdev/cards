@@ -5,6 +5,22 @@
   font-size: var(--font-size-s);
 }
 
+.root {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.selectWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  margin-right: 9px;
+  margin-left: 6px;
+}
+
 %button {
   display: flex;
   align-items: center;
