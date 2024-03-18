@@ -14,10 +14,10 @@
 
   left: 12px;
   color: var(--color-dark-100);
+}
 
-  &.disabled {
-    color: var(--color-dark-300);
-  }
+.disabled {
+  color: var(--color-dark-300);
 }
 
 .input {

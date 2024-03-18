@@ -40,7 +40,7 @@ export const Input = ({
     inputContainer: clsx(s.inputContainer, disabled && s.disabled),
     label: s.label,
     searchIcon: s.searchIcon,
-    showOrHidePassword: s.showOrHidePassword,
+    showOrHidePassword: clsx(s.showOrHidePassword, disabled && s.disabled),
   }
 
   return (
@@ -63,6 +63,7 @@ export const Input = ({
         {type === 'password' && (
           <button
             className={classNames.showOrHidePassword}
+            disabled={disabled}
             onClick={() => setShowPassword(prev => !prev)}
           >
             {showPassword ? <CloseIcon /> : <EyeIcon className={classNames.eyeIcon} />}
