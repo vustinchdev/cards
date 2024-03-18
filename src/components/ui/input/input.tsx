@@ -39,6 +39,7 @@ export const Input = ({
     input: clsx(s.input, errorMessage && s.errorInput, search && s.search, className),
     inputContainer: clsx(s.inputContainer, disabled && s.disabled),
     label: s.label,
+    searchIcon: s.searchIcon,
     showOrHidePassword: s.showOrHidePassword,
   }
 
@@ -67,7 +68,7 @@ export const Input = ({
             {showPassword ? <CloseIcon /> : <EyeIcon className={classNames.eyeIcon} />}
           </button>
         )}
-        {search && <SearchIcon />}
+        {search && <SearchIcon className={classNames.searchIcon} />}
       </div>
       {errorMessage && <div className={classNames.error}>{errorMessage}</div>}
     </div>
