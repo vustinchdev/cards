@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 type Props = {
   currentPage: number
@@ -63,13 +63,13 @@ export const usePagination = ({
     }
   }, [totalItemsCount, itemsPerPage, siblingCount, currentPage]) as PaginationRange
 
-  const handleNextPage = () => {
+  const handleNextPage = useCallback(() => {
     onPageChange(currentPage + 1)
-  }
+  }, [currentPage, onPageChange])
 
-  const handlePreviosPage = () => {
+  const handlePreviosPage = useCallback(() => {
     onPageChange(currentPage - 1)
-  }
+  }, [currentPage, onPageChange])
 
   const handlePageChange = (pageNumber: number) => {
     return () => onPageChange(pageNumber)
