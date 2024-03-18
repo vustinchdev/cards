@@ -16,6 +16,19 @@
   color: var(--color-dark-100);
 }
 
+.clearButton {
+  @extend %icon-position;
+
+  right: 12px;
+
+  display: block;
+
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+}
+
 .disabled {
   color: var(--color-dark-300);
 }

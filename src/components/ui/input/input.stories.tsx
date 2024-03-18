@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { useState } from 'react'
+
 import { Input } from './input'
 
 const meta = {
@@ -60,5 +62,27 @@ export const InputDisabled: Story = {
     label: 'Input',
     placeholder: 'Input',
     type: 'text',
+  },
+}
+
+export const InputWithClearButton: Story = {
+  args: {
+    label: 'Input With Clear Button',
+    placeholder: 'Input',
+    type: 'text',
+  },
+  render: args => {
+    const [value, setValue] = useState('')
+
+    return (
+      <div style={{ width: '250px' }}>
+        <Input
+          {...args}
+          onChange={e => setValue(e.currentTarget.value)}
+          onClear={() => setValue('')}
+          value={value}
+        />
+      </div>
+    )
   },
 }

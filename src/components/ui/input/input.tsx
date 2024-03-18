@@ -8,6 +8,7 @@ import s from './input.module.scss'
 export type InputProps = {
   errorMessage?: string
   label?: string
+  onClear?: () => void
   onValueChange?: (value: string) => void
   search?: boolean
 } & ComponentPropsWithoutRef<'input'>
@@ -19,6 +20,7 @@ export const Input = ({
   id,
   label,
   onChange,
+  onClear,
   onValueChange,
   placeholder,
   search,
@@ -33,7 +35,10 @@ export const Input = ({
     onValueChange?.(event.target.value)
   }
 
+  const isShowClearButton = onClear && value
+
   const classNames = {
+    clearButton: s.clearButton,
     error: s.error,
     eyeIcon: s.eyeIcon,
     input: clsx(s.input, errorMessage && s.errorInput, search && s.search, className),
@@ -58,6 +63,7 @@ export const Input = ({
           onChange={handleChange}
           placeholder={placeholder}
           type={type === 'password' && showPassword ? 'text' : type}
+          value={value}
           {...rest}
         />
         {type === 'password' && (
@@ -70,6 +76,11 @@ export const Input = ({
           </button>
         )}
         {search && <SearchIcon className={classNames.searchIcon} />}
+        {isShowClearButton && (
+          <button className={classNames.clearButton} onClick={onClear}>
+            <CloseIcon />
+          </button>
+        )}
       </div>
       {errorMessage && <div className={classNames.error}>{errorMessage}</div>}
     </div>
