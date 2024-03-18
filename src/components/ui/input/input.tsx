@@ -1,6 +1,9 @@
 import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
 
 import { CloseIcon, EyeIcon, SearchIcon } from '@/assets/icons'
+import clsx from 'clsx'
+
+import s from './input.module.scss'
 
 export type InputProps = {
   errorMessage?: string
@@ -30,11 +33,25 @@ export const Input = ({
     onValueChange?.(event.target.value)
   }
 
+  const classNames = {
+    error: s.error,
+    eyeIcon: s.eyeIcon,
+    input: clsx(s.input, errorMessage && s.errorInput, search && s.search, className),
+    inputContainer: clsx(s.inputContainer, disabled && s.disabled),
+    label: s.label,
+    showOrHidePassword: s.showOrHidePassword,
+  }
+
   return (
     <div>
-      {label && <label htmlFor={id}>{label}</label>}
-      <div>
+      {label && (
+        <label className={classNames.label} htmlFor={id}>
+          {label}
+        </label>
+      )}
+      <div className={classNames.inputContainer}>
         <input
+          className={classNames.input}
           disabled={disabled}
           id={id}
           onChange={handleChange}
@@ -43,13 +60,16 @@ export const Input = ({
           {...rest}
         />
         {type === 'password' && (
-          <button onClick={() => setShowPassword(prev => !prev)}>
-            {showPassword ? <CloseIcon /> : <EyeIcon />}
+          <button
+            className={classNames.showOrHidePassword}
+            onClick={() => setShowPassword(prev => !prev)}
+          >
+            {showPassword ? <CloseIcon /> : <EyeIcon className={classNames.eyeIcon} />}
           </button>
         )}
         {search && <SearchIcon />}
       </div>
-      {errorMessage && <div>{errorMessage}</div>}
+      {errorMessage && <div className={classNames.error}>{errorMessage}</div>}
     </div>
   )
 }
