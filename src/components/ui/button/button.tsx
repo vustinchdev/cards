@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, ElementType, ForwardedRef, forwardRef } from 'react'
 
-import { BackArrowIcon } from '@/assets/icons'
+import { BackArrowIcon } from '@/assets'
 import clsx from 'clsx'
 
 import s from './button.module.scss'

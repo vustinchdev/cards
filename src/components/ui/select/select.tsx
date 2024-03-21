@@ -1,12 +1,11 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
-import { ArrowIcon } from '@/assets/icons'
+import { ArrowIcon } from '@/assets'
+import { Typography } from '@/components'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import clsx from 'clsx'
 
 import s from './select.module.scss'
-
-import { Typography } from '../typography'
 
 export type SelectOption = {
   title: string

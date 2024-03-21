@@ -1,6 +1,6 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
-import { CloseIcon, EyeIcon, SearchIcon } from '@/assets/icons'
+import { CloseIcon, EyeIcon, SearchIcon } from '@/assets'
 import clsx from 'clsx'
 
 import s from './input.module.scss'
