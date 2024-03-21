@@ -8,6 +8,8 @@ import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+import s from './login-form.module.scss'
+
 type Props = {
   onSubmit: (data: FormValues) => void
 }
@@ -29,20 +31,42 @@ export const LoginForm = ({ onSubmit }: Props) => {
     resolver: zodResolver(loginSchema),
   })
 
+  const classNames = {
+    caption: s.caption,
+    card: s.card,
+    forgotPasswordLink: s.forgotPasswordLink,
+    inputsContainer: s.inputsContainer,
+    signUpLink: s.signUpLink,
+    title: s.title,
+  }
+
   return (
-    <Card as={'form'} onSubmit={handleSubmit(onSubmit)}>
-      <Typography as={'h1'} variant={'h1'}>
+    <Card as={'form'} className={classNames.card} onSubmit={handleSubmit(onSubmit)}>
+      <Typography as={'h1'} className={classNames.title} variant={'h1'}>
         Sign In
       </Typography>
-      <FormInput control={control} label={'Email'} name={'email'} placeholder={'email'} />
-      <FormInput control={control} label={'Password'} name={'password'} placeholder={'password'} />
-      <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
-      <Typography as={'a'} href={'#'}>
+      <div className={classNames.inputsContainer}>
+        <FormInput control={control} label={'Email'} name={'email'} placeholder={'email'} />
+        <FormInput
+          control={control}
+          label={'Password'}
+          name={'password'}
+          placeholder={'password'}
+          type={'password'}
+        />
+      </div>
+
+      <FormCheckbox control={control} id={'rememberMe'} label={'Remember me'} name={'rememberMe'} />
+      <Typography as={'a'} className={classNames.forgotPasswordLink} href={'#'}>
         Forgot Password?
       </Typography>
-      <Button type={'submit'}>Sign In</Button>
-      <Typography>Don{"'"}t have an account?</Typography>
-      <a href={'#'}>Sign Up</a>
+      <Button fullWidth type={'submit'}>
+        Sign In
+      </Button>
+      <Typography className={classNames.caption}>Don{"'"}t have an account?</Typography>
+      <a className={classNames.signUpLink} href={'#'}>
+        Sign Up
+      </a>
     </Card>
   )
 }
