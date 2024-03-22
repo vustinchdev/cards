@@ -25,7 +25,7 @@ export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, Select
       content: s.content,
       icon: s.icon,
       item: s.item,
-      label: clsx(label, disabled && s.disabledLabel),
+      label: clsx(s.label, disabled && s.disabledLabel),
       trigger: s.trigger,
     }
 
@@ -37,11 +37,7 @@ export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, Select
 
     return (
       <div className={className}>
-        {label && (
-          <Typography as={'label'} className={classNames.label} variant={'body2'}>
-            {label}
-          </Typography>
-        )}
+        {label && <label className={classNames.label}>{label}</label>}
         <SelectPrimitive.Root disabled={disabled} {...rest}>
           <SelectPrimitive.Trigger className={classNames.trigger} ref={ref}>
             <SelectPrimitive.Value placeholder={placeholder} />
