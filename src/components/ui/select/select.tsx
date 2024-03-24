@@ -10,11 +10,12 @@ type SelectProps = {
   className?: string
   externalId?: string
   label?: string
+  pagination?: boolean
   placeholder?: string
 } & ComponentPropsWithoutRef<typeof SelectPrimitive.Root>
 
 export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, SelectProps>(
-  ({ children, className, disabled, externalId, label, placeholder, ...rest }, ref) => {
+  ({ children, className, disabled, externalId, label, pagination, placeholder, ...rest }, ref) => {
     const id = useId()
     const finalId = externalId ?? id
 
@@ -23,7 +24,7 @@ export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, Select
       icon: s.icon,
       item: s.item,
       label: clsx(s.label, disabled && s.disabledLabel),
-      trigger: s.trigger,
+      trigger: clsx(s.trigger, pagination && s.pagination),
     }
 
     return (

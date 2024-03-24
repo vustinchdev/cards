@@ -116,6 +116,7 @@ export const PerPageSelect = ({
       <Select
         className={classNames.select}
         onValueChange={page => onPerPageChange(Number(page))}
+        pagination
         value={String(itemsPerPage)}
       >
         {perPageOptions.map(option => {
