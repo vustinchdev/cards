@@ -1,26 +1,23 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
 
 import { ArrowIcon } from '@/assets'
-import { Typography } from '@/components'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import clsx from 'clsx'
 
 import s from './select.module.scss'
 
-export type SelectOption = {
-  title: string
-  value: string
-}
-
 type SelectProps = {
   className?: string
+  externalId?: string
   label?: string
-  options?: SelectOption[]
   placeholder?: string
 } & ComponentPropsWithoutRef<typeof SelectPrimitive.Root>
 
 export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, SelectProps>(
-  ({ children, className, disabled, label, options, placeholder, ...rest }, ref) => {
+  ({ children, className, disabled, externalId, label, placeholder, ...rest }, ref) => {
+    const id = useId()
+    const finalId = externalId ?? id
+
     const classNames = {
       content: s.content,
       icon: s.icon,
@@ -29,28 +26,22 @@ export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, Select
       trigger: s.trigger,
     }
 
-    const selectOptions = options?.map(option => (
-      <SelectItem key={option.value} value={option.value}>
-        {option.title}
-      </SelectItem>
-    ))
-
     return (
       <div className={className}>
-        {label && <label className={classNames.label}>{label}</label>}
+        {label && (
+          <label className={classNames.label} htmlFor={finalId}>
+            {label}
+          </label>
+        )}
         <SelectPrimitive.Root disabled={disabled} {...rest}>
-          <SelectPrimitive.Trigger className={classNames.trigger} ref={ref}>
+          <SelectPrimitive.Trigger className={classNames.trigger} id={finalId} ref={ref}>
             <SelectPrimitive.Value placeholder={placeholder} />
             <ArrowIcon className={classNames.icon} />
           </SelectPrimitive.Trigger>
           <SelectPrimitive.Portal>
-            <SelectPrimitive.Content
-              className={classNames.content}
-              position={'popper'}
-              side={'bottom'}
-            >
+            <SelectPrimitive.Content className={classNames.content} position={'popper'}>
               <SelectPrimitive.Viewport>
-                <SelectPrimitive.Group>{selectOptions}</SelectPrimitive.Group>
+                <SelectPrimitive.Group>{children}</SelectPrimitive.Group>
               </SelectPrimitive.Viewport>
             </SelectPrimitive.Content>
           </SelectPrimitive.Portal>
