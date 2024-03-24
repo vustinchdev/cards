@@ -1,5 +1,5 @@
 import { ArrowIcon } from '@/assets'
-import { Select } from '@/components'
+import { Select, SelectItem } from '@/components'
 import clsx from 'clsx'
 
 import s from './pagination.module.scss'
@@ -110,20 +110,22 @@ export const PerPageSelect = ({
   onPerPageChange,
   perPageOptions,
 }: PerPageSelectProps) => {
-  const selectOptions = perPageOptions.map(option => ({
-    title: String(option),
-    value: String(option),
-  }))
-
   return (
     <div className={classNames.selectWrapper}>
       Show
       <Select
         className={classNames.select}
         onValueChange={page => onPerPageChange(Number(page))}
-        options={selectOptions}
         value={String(itemsPerPage)}
-      />
+      >
+        {perPageOptions.map(option => {
+          return (
+            <SelectItem key={option} value={String(option)}>
+              {option}
+            </SelectItem>
+          )
+        })}
+      </Select>
       on page
     </div>
   )
