@@ -26,7 +26,7 @@ export const SelectDefault: Story = {
   },
   render: args => {
     return (
-      <div style={{ marginTop: '500px', width: '210px' }}>
+      <div style={{ width: '210px' }}>
         <Select {...args} />
       </div>
     )

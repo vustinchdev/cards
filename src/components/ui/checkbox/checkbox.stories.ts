@@ -12,9 +12,15 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Uncontrolled: Story = {
+export const CheckboxDefault: Story = {
   args: {
     checked: true,
+    label: 'Check-box',
+  },
+}
+export const CheckboxDisabled: Story = {
+  args: {
+    disabled: true,
     label: 'Check-box',
   },
 }
