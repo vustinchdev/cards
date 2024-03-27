@@ -27,7 +27,9 @@ export const RadioGroupDisabled: Story = {
   args: {
     children: (
       <>
-        <RadioGroupItem value={'option1'}>option 1</RadioGroupItem>
+        <RadioGroupItem checked value={'option1'}>
+          option 1
+        </RadioGroupItem>
         <RadioGroupItem value={'option2'}>option 2</RadioGroupItem>
         <RadioGroupItem value={'option3'}>option 3</RadioGroupItem>
       </>
