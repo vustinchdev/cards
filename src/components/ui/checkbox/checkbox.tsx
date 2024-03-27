@@ -22,7 +22,7 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, Checkb
     return (
       <div className={classNames.container}>
         <div className={classNames.buttonWrapper}>
-          <CheckboxRadix.Root className={s.root} id={id} ref={ref} {...rest}>
+          <CheckboxRadix.Root className={s.root} disabled={disabled} id={id} ref={ref} {...rest}>
             <CheckboxRadix.Indicator className={classNames.indicator}>
               <CheckboxIndicatorIcon />
             </CheckboxRadix.Indicator>
