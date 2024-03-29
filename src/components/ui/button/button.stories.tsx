@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { EditIcon } from '@/assets'
+
 import { Button } from '.'
 import { BackArrowIcon } from '../../../assets/icons/backArrow'
 
@@ -51,6 +53,13 @@ export const SecondaryWithIcon: Story = {
     disabled: false,
     icon: <BackArrowIcon />,
     variant: 'secondary',
+  },
+}
+
+export const Icon: Story = {
+  args: {
+    icon: <EditIcon />,
+    variant: 'icon',
   },
 }
 
