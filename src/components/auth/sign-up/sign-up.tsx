@@ -13,6 +13,7 @@ type Props = {
 type FormValues = z.infer<typeof signUpSchema>
 
 const signUpSchema = z.object({
+  confirmPassword: z.string().min(5),
   email: z.string().email(),
   password: z.string().min(5),
 })
@@ -20,6 +21,7 @@ const signUpSchema = z.object({
 export const SignUp = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
+      confirmPassword: '',
       email: '',
       password: '',
     },
@@ -51,8 +53,8 @@ export const SignUp = ({ onSubmit }: Props) => {
         <FormInput
           control={control}
           label={'Confirm Password'}
-          name={'password'}
-          placeholder={'password'}
+          name={'confirmPassword'}
+          placeholder={'confirm password'}
           type={'password'}
         />
       </div>
