@@ -4,7 +4,7 @@ import { Button, Card, FormCheckbox, FormInput, Typography } from '@/components'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './login-form.module.scss'
+import s from './sign-in.module.scss'
 
 type Props = {
   onSubmit: (data: FormValues) => void
@@ -17,7 +17,7 @@ const loginSchema = z.object({
   rememberMe: z.boolean(),
 })
 
-export const LoginForm = ({ onSubmit }: Props) => {
+export const SignIn = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       email: '',
