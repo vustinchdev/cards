@@ -4,6 +4,8 @@ import { Button, Card, FormInput, Typography } from '@/components'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+import s from './sign-up.module.scss'
+
 type Props = {
   onSubmit: (data: FormValues) => void
 }
@@ -24,29 +26,43 @@ export const SignUp = ({ onSubmit }: Props) => {
     resolver: zodResolver(signUpSchema),
   })
 
+  const classNames = {
+    caption: s.caption,
+    card: s.card,
+    inputsContainer: s.inputsContainer,
+    signInLink: s.signInLink,
+    title: s.title,
+  }
+
   return (
-    <Card as={'form'} onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant={'h1'}>Sign Up</Typography>
-      <FormInput control={control} label={'Email'} name={'email'} placeholder={'email'} />
-      <FormInput
-        control={control}
-        label={'Password'}
-        name={'password'}
-        placeholder={'password'}
-        type={'password'}
-      />
-      <FormInput
-        control={control}
-        label={'Confirm Password'}
-        name={'password'}
-        placeholder={'password'}
-        type={'password'}
-      />
+    <Card as={'form'} className={classNames.card} onSubmit={handleSubmit(onSubmit)}>
+      <Typography className={classNames.title} variant={'h1'}>
+        Sign Up
+      </Typography>
+      <div className={classNames.inputsContainer}>
+        <FormInput control={control} label={'Email'} name={'email'} placeholder={'email'} />
+        <FormInput
+          control={control}
+          label={'Password'}
+          name={'password'}
+          placeholder={'password'}
+          type={'password'}
+        />
+        <FormInput
+          control={control}
+          label={'Confirm Password'}
+          name={'password'}
+          placeholder={'password'}
+          type={'password'}
+        />
+      </div>
       <Button fullWidth type={'submit'}>
         Sign Up
       </Button>
-      <Typography variant={'body2'}>Already have an account?</Typography>
-      <Typography as={'a'} href={'#'} variant={'subtitle1'}>
+      <Typography className={classNames.caption} variant={'body2'}>
+        Already have an account?
+      </Typography>
+      <Typography as={'a'} className={classNames.signInLink} href={'#'} variant={'subtitle1'}>
         Sign In
       </Typography>
     </Card>
