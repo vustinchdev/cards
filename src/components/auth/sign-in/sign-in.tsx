@@ -38,7 +38,7 @@ export const SignIn = ({ onSubmit }: Props) => {
 
   return (
     <Card as={'form'} className={classNames.card} onSubmit={handleSubmit(onSubmit)}>
-      <Typography as={'h1'} className={classNames.title} variant={'h1'}>
+      <Typography className={classNames.title} variant={'h1'}>
         Sign In
       </Typography>
       <div className={classNames.inputsContainer}>
