@@ -1,6 +1,9 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import * as TabsPrimitive from '@radix-ui/react-tabs'
+import clsx from 'clsx'
+
+import s from './tabs.module.scss'
 
 export type TabsProps = ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
 
@@ -18,8 +21,12 @@ export type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitive.Tri
 
 export const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitive.Trigger>, TabsTriggerProps>(
   ({ children, ...rest }, ref) => {
+    const classNames = {
+      trigger: s.trigger,
+    }
+
     return (
-      <TabsPrimitive.Trigger {...rest} ref={ref}>
+      <TabsPrimitive.Trigger className={classNames.trigger} {...rest} ref={ref}>
         {children}
       </TabsPrimitive.Trigger>
     )
@@ -29,9 +36,13 @@ export const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitive.Trigger>, 
 export type TabsListProps = ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 
 export const TabsList = forwardRef<ElementRef<typeof TabsPrimitive.List>, TabsListProps>(
-  ({ children, ...rest }, ref) => {
+  ({ children, className, ...rest }, ref) => {
+    const classNames = {
+      list: clsx(s.list, className),
+    }
+
     return (
-      <TabsPrimitive.List {...rest} ref={ref}>
+      <TabsPrimitive.List className={classNames.list} {...rest} ref={ref}>
         {children}
       </TabsPrimitive.List>
     )
