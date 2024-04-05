@@ -1,6 +1,8 @@
 import { StarIcon } from '@/assets/icons/star'
 import { StarOutlineIcon } from '@/assets/icons/star-outline'
 
+import s from './grade.module.scss'
+
 type Props = {
   maxGrade: number
   onChangeGrade: (value: number) => void
@@ -8,6 +10,9 @@ type Props = {
 }
 
 export const Grade = ({ maxGrade, onChangeGrade, value }: Props) => {
+  const classNames = {
+    grade: s.grade,
+  }
   const stars = Array.from({ length: maxGrade }, (_, i) => i + 1)
 
   const handleClick = (value: number) => {
@@ -15,7 +20,7 @@ export const Grade = ({ maxGrade, onChangeGrade, value }: Props) => {
   }
 
   return (
-    <div>
+    <div className={classNames.grade}>
       {stars.map(star => (
         <Star key={star} onClick={handleClick} selected={value >= star} value={star} />
       ))}
@@ -30,7 +35,14 @@ type StarProps = {
 }
 
 const Star = ({ onClick, selected, value }: StarProps) => {
+  const classNames = {
+    star: s.star,
+  }
   const handleClick = () => onClick(value)
 
-  return <span onClick={handleClick}>{selected ? <StarIcon /> : <StarOutlineIcon />}</span>
+  return (
+    <span className={classNames.star} onClick={handleClick}>
+      {selected ? <StarIcon /> : <StarOutlineIcon />}
+    </span>
+  )
 }
