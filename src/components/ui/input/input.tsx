@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
 import { CloseIcon, EyeIcon, SearchIcon } from '@/assets'
 import clsx from 'clsx'
@@ -19,7 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       className,
       disabled,
       errorMessage,
-      id,
+      id: externalId,
       label,
       onChange,
       onClear,
@@ -33,6 +33,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false)
+
+    const id = useId()
+    const finalId = externalId ?? id
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange?.(event)
@@ -55,7 +58,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div>
         {label && (
-          <label className={classNames.label} htmlFor={id}>
+          <label className={classNames.label} htmlFor={finalId}>
             {label}
           </label>
         )}
@@ -63,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             className={classNames.input}
             disabled={disabled}
-            id={id}
+            id={finalId}
             onChange={handleChange}
             placeholder={placeholder}
             ref={ref}
