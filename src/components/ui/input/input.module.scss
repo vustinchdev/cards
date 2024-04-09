@@ -24,9 +24,13 @@
 .clearButton {
   @extend %icon-position;
 
+  cursor: pointer;
+
   right: 12px;
 
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   padding: 0;
 
