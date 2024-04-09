@@ -14,7 +14,6 @@ import s from './button.module.scss'
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   fullWidth?: boolean
-  icon?: ReactNode
   variant?: 'icon' | 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
@@ -26,11 +25,9 @@ const ButtonPolymorph = <T extends ElementType = 'button'>(
 ) => {
   const {
     as: Component = 'button',
-    back,
     children,
     className,
     fullWidth,
-    icon,
     variant = 'primary',
     ...rest
   } = props
@@ -41,7 +38,7 @@ const ButtonPolymorph = <T extends ElementType = 'button'>(
 
   return (
     <Component className={classNames.root} ref={ref} {...rest}>
-      {icon} {children}
+      {children}
     </Component>
   )
 }

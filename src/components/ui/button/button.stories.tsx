@@ -31,9 +31,13 @@ export const Primary: Story = {
 export const PrimaryWithIcon: Story = {
   args: {
     back: true,
-    children: 'Primary Button With Icon',
+    children: (
+      <>
+        <BackArrowIcon />
+        {'Primary Button With Icon'}
+      </>
+    ),
     disabled: false,
-    icon: <BackArrowIcon />,
     variant: 'primary',
   },
 }
@@ -49,16 +53,25 @@ export const Secondary: Story = {
 export const SecondaryWithIcon: Story = {
   args: {
     back: true,
-    children: 'Secondary Button With Icon',
+    children: (
+      <>
+        <BackArrowIcon />
+        {'Secondary Button With Icon'}
+      </>
+    ),
+
     disabled: false,
-    icon: <BackArrowIcon />,
     variant: 'secondary',
   },
 }
 
 export const Icon: Story = {
   args: {
-    icon: <EditIcon />,
+    children: (
+      <>
+        <EditIcon />
+      </>
+    ),
     variant: 'icon',
   },
 }
