@@ -42,19 +42,24 @@ export const SignUp = ({ onSubmit }: Props) => {
         Sign Up
       </Typography>
       <div className={classNames.inputsContainer}>
-        <FormInput control={control} label={'Email'} name={'email'} placeholder={'email'} />
+        <FormInput
+          control={control}
+          label={'Email'}
+          name={'email'}
+          placeholder={'example@gmail.com'}
+        />
         <FormInput
           control={control}
           label={'Password'}
           name={'password'}
-          placeholder={'password'}
+          placeholder={'YourPassword123'}
           type={'password'}
         />
         <FormInput
           control={control}
           label={'Confirm Password'}
           name={'confirmPassword'}
-          placeholder={'confirm password'}
+          placeholder={'YourPassword123'}
           type={'password'}
         />
       </div>
