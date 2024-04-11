@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { EditIcon } from '@/assets'
+import { EditIcon, LogOutIcon } from '@/assets'
 
 import { Button } from '.'
-import { BackArrowIcon } from '../../../assets/icons/backArrow'
 
 const meta = {
   argTypes: {
@@ -33,7 +32,7 @@ export const PrimaryWithIcon: Story = {
     back: true,
     children: (
       <>
-        <BackArrowIcon />
+        <LogOutIcon />
         {'Primary Button With Icon'}
       </>
     ),
@@ -55,7 +54,7 @@ export const SecondaryWithIcon: Story = {
     back: true,
     children: (
       <>
-        <BackArrowIcon />
+        <LogOutIcon />
         {'Secondary Button With Icon'}
       </>
     ),

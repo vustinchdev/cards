@@ -1,6 +1,6 @@
 import { SVGProps } from 'react'
 
-export const TrashIcon = (props: SVGProps<SVGSVGElement>) => (
+export const TrashOutlineIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     fill={'none'}
     height={'16'}
