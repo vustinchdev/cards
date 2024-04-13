@@ -3,35 +3,36 @@ import { SVGProps } from 'react'
 export const MoreVerticalOutlineIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     fill={'none'}
-    height={'12'}
-    viewBox={'0 0 12 12'}
-    width={'12'}
+    height={'24'}
+    viewBox={'0 0 24 24'}
+    width={'24'}
     xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
-    <g clipPath={'url(#clip0_65142_278)'}>
+    <circle cx={'12'} cy={'12'} r={'8.5'} stroke={'currentColor'} />
+    <g clipPath={'url(#clip0_5928_6379)'}>
       <path
         d={
-          'M6 7C6.55228 7 7 6.55228 7 6C7 5.44772 6.55228 5 6 5C5.44772 5 5 5.44772 5 6C5 6.55228 5.44772 7 6 7Z'
+          'M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z'
         }
         fill={'currentColor'}
       />
       <path
         d={
-          'M6 3.5C6.55228 3.5 7 3.05228 7 2.5C7 1.94772 6.55228 1.5 6 1.5C5.44772 1.5 5 1.94772 5 2.5C5 3.05228 5.44772 3.5 6 3.5Z'
+          'M12 9.5C12.5523 9.5 13 9.05228 13 8.5C13 7.94772 12.5523 7.5 12 7.5C11.4477 7.5 11 7.94772 11 8.5C11 9.05228 11.4477 9.5 12 9.5Z'
         }
         fill={'currentColor'}
       />
       <path
         d={
-          'M6 10.5C6.55228 10.5 7 10.0523 7 9.5C7 8.94772 6.55228 8.5 6 8.5C5.44772 8.5 5 8.94772 5 9.5C5 10.0523 5.44772 10.5 6 10.5Z'
+          'M12 16.5C12.5523 16.5 13 16.0523 13 15.5C13 14.9477 12.5523 14.5 12 14.5C11.4477 14.5 11 14.9477 11 15.5C11 16.0523 11.4477 16.5 12 16.5Z'
         }
         fill={'currentColor'}
       />
     </g>
     <defs>
-      <clipPath id={'clip0_65142_278'}>
-        <rect fill={'currentColor'} height={'12'} width={'12'} />
+      <clipPath id={'clip0_5928_6379'}>
+        <rect fill={'currentColor'} height={'16'} transform={'translate(6 6)'} width={'16'} />
       </clipPath>
     </defs>
   </svg>
