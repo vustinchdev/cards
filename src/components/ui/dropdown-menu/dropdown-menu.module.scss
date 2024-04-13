@@ -13,21 +13,8 @@
 
 .item {
   cursor: pointer;
-
-  display: flex;
-  gap: 6px;
-  align-items: center;
-
   font-size: var(--font-size-xs);
   line-height: var(--line-height-s);
-
-  > :first-child {
-    margin-bottom: 12px;
-  }
-
-  > :last-child {
-    margin-top: 12px;
-  }
 }
 
 .arrow {

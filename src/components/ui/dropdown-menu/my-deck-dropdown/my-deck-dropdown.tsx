@@ -7,6 +7,7 @@ import {
 
 import s from './my-deck-dropdown.module.scss'
 
+import { Typography } from '../../typography'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +18,8 @@ import {
 
 export const MyDeckDropdown = () => {
   const classNames = {
+    content: s.content,
+    menuItem: s.menuItem,
     trigger: s.trigger,
   }
 
@@ -25,20 +28,20 @@ export const MyDeckDropdown = () => {
       <DropdownMenuTrigger className={classNames.trigger}>
         <MoreVerticalOutlineIcon />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
+      <DropdownMenuContent className={classNames.content}>
+        <DropdownMenuItem className={classNames.menuItem}>
           <PlayCircleOutlineIcon />
-          Learn
+          <Typography variant={'caption'}>Learn</Typography>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className={classNames.menuItem}>
           <EditOutlineIcon />
-          Edit
+          <Typography variant={'caption'}>Edit</Typography>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className={classNames.menuItem}>
           <TrashOutlineIcon />
-          Delete
+          <Typography variant={'caption'}>Delete</Typography>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

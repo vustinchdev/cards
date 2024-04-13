@@ -1,4 +1,5 @@
 @mixin typography($fontSize, $fontWeight, $lineHeight) {
+  margin: 0;
   font-size: $fontSize;
   font-weight: $fontWeight;
   line-height: $lineHeight;
