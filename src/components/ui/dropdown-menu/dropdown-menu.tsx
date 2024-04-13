@@ -16,6 +16,7 @@ export const DropdownMenuContent = forwardRef<
   DropdownMenuContentProps
 >(({ children, className, ...rest }, ref) => {
   const classNames = {
+    arrow: s.arrow,
     content: clsx(s.content, className),
   }
 
@@ -23,7 +24,9 @@ export const DropdownMenuContent = forwardRef<
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content className={classNames.content} {...rest} ref={ref}>
         {children}
-        <DropdownMenuPrimitive.Arrow />
+        <DropdownMenuPrimitive.Arrow asChild>
+          <div className={classNames.arrow} />
+        </DropdownMenuPrimitive.Arrow>
       </DropdownMenuPrimitive.Content>
     </DropdownMenuPrimitive.Portal>
   )

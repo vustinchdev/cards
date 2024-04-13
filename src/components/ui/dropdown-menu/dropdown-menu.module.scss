@@ -1,6 +1,8 @@
 .content {
+  position: relative;
   z-index: 999;
 
+  margin-top: 12px;
   padding: 12px;
 
   background-color: var(--color-dark-700);
@@ -10,12 +12,39 @@
 
 .item {
   cursor: pointer;
+
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
   font-size: var(--font-size-xs);
   line-height: var(--line-height-s);
+
+  > :first-child {
+    margin-bottom: 12px;
+  }
+
+  > :last-child {
+    margin-top: 12px;
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: -4.75px;
+  right: 10px;
+  transform: rotate(45deg);
+
+  width: 11px;
+  height: 11px;
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  border-top: none;
+  border-left: none;
 }
 
 .separator {
   height: 1px;
-  margin: 0 12px;
   background-color: var(--color-dark-500);
 }
