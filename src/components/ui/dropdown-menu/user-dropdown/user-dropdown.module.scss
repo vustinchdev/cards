@@ -1,12 +1,27 @@
-.trigger {
-  all: unset;
-  cursor: pointer;
+.content {
+  right: 74px;
 }
 
 .label {
   display: flex;
   gap: 8px;
   margin-bottom: 12px;
+}
+
+.trigger {
+  all: unset;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 100%;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-info-700);
+  }
 }
 
 .userInfo {

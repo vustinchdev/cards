@@ -20,6 +20,7 @@ type UserDropdownProps = {
 
 export const UserDropdown = ({ avatar, email, name }: UserDropdownProps) => {
   const classNames = {
+    content: s.content,
     email: s.email,
     label: s.label,
     menuItem: s.menuItem,
@@ -32,7 +33,7 @@ export const UserDropdown = ({ avatar, email, name }: UserDropdownProps) => {
       <DropdownMenuTrigger className={classNames.trigger}>
         <Avatar alt={'avatar'} src={avatar} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className={classNames.content}>
         <DropdownMenuLabel className={classNames.label}>
           <Avatar alt={'avatar'} src={avatar} />
           <div className={classNames.userInfo}>

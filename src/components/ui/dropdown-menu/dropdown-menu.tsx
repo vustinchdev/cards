@@ -24,9 +24,7 @@ export const DropdownMenuContent = forwardRef<
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content className={classNames.content} {...rest} ref={ref}>
         {children}
-        <DropdownMenuPrimitive.Arrow asChild>
-          <div className={classNames.arrow} />
-        </DropdownMenuPrimitive.Arrow>
+        <div className={classNames.arrow} />
       </DropdownMenuPrimitive.Content>
     </DropdownMenuPrimitive.Portal>
   )
