@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { Button, Card, FormInput, Typography } from '@/components'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -69,7 +70,7 @@ export const SignUp = ({ onSubmit }: Props) => {
       <Typography className={classNames.caption} variant={'body2'}>
         Already have an account?
       </Typography>
-      <Typography as={'a'} className={classNames.signInLink} href={'#'} variant={'subtitle1'}>
+      <Typography as={Link} className={classNames.signInLink} to={'#'} variant={'link1'}>
         Sign In
       </Typography>
     </Card>

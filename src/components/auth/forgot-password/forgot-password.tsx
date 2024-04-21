@@ -53,7 +53,7 @@ export const ForgotPassword = ({ handlePasswordRecover }: Props) => {
       <Typography className={classNames.caption} variant={'body2'}>
         Did you remember your password?
       </Typography>
-      <Typography as={Link} className={classNames.link} to={'#'} variant={'subtitle1'}>
+      <Typography as={Link} className={classNames.link} to={'#'} variant={'link1'}>
         Try logging in
       </Typography>
     </Card>
