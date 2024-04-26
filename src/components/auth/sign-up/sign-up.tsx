@@ -13,11 +13,16 @@ type Props = {
 
 type FormValues = z.infer<typeof signUpSchema>
 
-const signUpSchema = z.object({
-  confirmPassword: z.string().min(5),
-  email: z.string().email(),
-  password: z.string().min(5),
-})
+const signUpSchema = z
+  .object({
+    confirmPassword: z.string().min(5),
+    email: z.string().email(),
+    password: z.string().min(5),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  })
 
 export const SignUp = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<FormValues>({
