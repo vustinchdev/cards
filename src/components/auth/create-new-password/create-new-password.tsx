@@ -4,6 +4,8 @@ import { Button, Card, FormInput, Typography } from '@/components'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
+import s from './create-new-password.module.scss'
+
 type FormValues = z.infer<typeof passwordSchema>
 type Props = {
   onSubmit: (data: FormValues) => void
@@ -19,17 +21,25 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
     resolver: zodResolver(passwordSchema),
   })
 
+  const classNames = {
+    card: s.card,
+    instructions: s.instructions,
+    title: s.title,
+  }
+
   return (
-    <Card as={'form'} onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant={'h1'}>Create new password</Typography>
+    <Card as={'form'} className={classNames.card} onSubmit={handleSubmit(onSubmit)}>
+      <Typography className={classNames.title} variant={'h1'}>
+        Create new password
+      </Typography>
       <FormInput
         control={control}
-        label={'password'}
+        label={'Password'}
         name={'password'}
         placeholder={'YourPassword123'}
         type={'password'}
       />
-      <Typography variant={'body2'}>
+      <Typography className={classNames.instructions} variant={'body2'}>
         Create new password and we will send you further instructions to email
       </Typography>
       <Button fullWidth type={'submit'}>
