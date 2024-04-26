@@ -15,7 +15,7 @@ type FormValues = z.infer<typeof loginSchema>
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(5),
-  rememberMe: z.boolean(),
+  rememberMe: z.boolean().optional(),
 })
 
 export const SignIn = ({ onSubmit }: Props) => {
