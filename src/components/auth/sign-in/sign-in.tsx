@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
 import { Button, Card, FormCheckbox, FormInput, Typography } from '@/components'
+import { signInSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -10,13 +11,7 @@ import s from './sign-in.module.scss'
 type Props = {
   onSubmit: (data: FormValues) => void
 }
-type FormValues = z.infer<typeof loginSchema>
-
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(5),
-  rememberMe: z.boolean().optional(),
-})
+type FormValues = z.infer<typeof signInSchema>
 
 export const SignIn = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<FormValues>({
@@ -25,7 +20,7 @@ export const SignIn = ({ onSubmit }: Props) => {
       password: '',
       rememberMe: false,
     },
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signInSchema),
   })
 
   const classNames = {

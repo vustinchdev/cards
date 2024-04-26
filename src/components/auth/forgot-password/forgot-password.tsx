@@ -2,15 +2,13 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
 import { Button, Card, FormInput, Typography } from '@/components'
+import { emailSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './forgot-password.module.scss'
 
 type FormValues = z.infer<typeof emailSchema>
-const emailSchema = z.object({
-  email: z.string().email(),
-})
 
 type Props = {
   handlePasswordRecover: (data: FormValues) => void
