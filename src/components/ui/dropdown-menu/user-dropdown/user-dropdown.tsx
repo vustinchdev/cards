@@ -12,13 +12,14 @@ import {
   DropdownMenuTrigger,
 } from '../dropdown-menu'
 
-type UserDropdownProps = {
+export type UserDropdownProps = {
   avatar: string
   email: string
   name: string
+  onSignOut: () => void
 }
 
-export const UserDropdown = ({ avatar, email, name }: UserDropdownProps) => {
+export const UserDropdown = ({ avatar, email, name, onSignOut }: UserDropdownProps) => {
   const classNames = {
     content: s.content,
     email: s.email,
@@ -49,7 +50,7 @@ export const UserDropdown = ({ avatar, email, name }: UserDropdownProps) => {
           <Typography variant={'caption'}>My profile</Typography>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className={classNames.menuItem}>
+        <DropdownMenuItem className={classNames.menuItem} onSelect={onSignOut}>
           <LogOutIcon />
           <Typography variant={'caption'}>Sign Out</Typography>
         </DropdownMenuItem>
