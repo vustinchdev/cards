@@ -31,7 +31,7 @@ export const HeaderLoggedOut: Story = {
 export const HeaderLoggedIn: Story = {
   args: {
     avatar: defaultAvatar,
-    email: 'example@gmail.con',
+    email: 'example@gmail.com',
     isLoggedIn: true,
     name: 'user',
     onSignOut: () => {},
