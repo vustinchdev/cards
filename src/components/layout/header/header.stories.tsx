@@ -16,7 +16,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const HeaderLoggedIn: Story = {
+export const HeaderLoggedOut: Story = {
   args: {
     isLoggedIn: false,
   },
@@ -28,7 +28,7 @@ export const HeaderLoggedIn: Story = {
     )
   },
 }
-export const HeaderLoggedOut: Story = {
+export const HeaderLoggedIn: Story = {
   args: {
     avatar: defaultAvatar,
     email: 'example@gmail.con',
