@@ -1,5 +1,5 @@
 .content {
-  right: 70px;
+  right: 48px;
 }
 
 .label {
@@ -14,10 +14,13 @@
   cursor: pointer;
 
   display: flex;
+  gap: 14px;
   align-items: center;
   justify-content: center;
 
-  border-radius: 100%;
+  padding: 3px;
+
+  border-radius: 30px;
 
   &:focus-visible {
     outline: 2px solid var(--color-info-700);
@@ -42,4 +45,8 @@
 
 .email {
   color: var(--color-dark-100);
+}
+
+.name {
+  border-bottom: 1px dashed;
 }

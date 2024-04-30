@@ -25,6 +25,7 @@ export const UserDropdown = ({ avatar, email, name, onSignOut }: UserDropdownPro
     email: s.email,
     label: s.label,
     menuItem: s.menuItem,
+    name: s.name,
     trigger: s.trigger,
     userInfo: s.userInfo,
   }
@@ -32,6 +33,9 @@ export const UserDropdown = ({ avatar, email, name, onSignOut }: UserDropdownPro
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={classNames.trigger}>
+        <Typography className={classNames.name} variant={'subtitle1'}>
+          {name}
+        </Typography>
         <Avatar alt={'avatar'} src={avatar} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className={classNames.content}>
