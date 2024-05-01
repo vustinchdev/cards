@@ -29,7 +29,12 @@ export const UserDropdownDefault: Story = {
   args: {},
   render: () => (
     <div style={{ marginLeft: '200px' }}>
-      <UserDropdown avatar={defaultAvatar} email={'j&johnson@gmail.com'} name={'Ivan'} />
+      <UserDropdown
+        avatar={defaultAvatar}
+        email={'j&johnson@gmail.com'}
+        name={'Ivan'}
+        onSignOut={() => {}}
+      />
     </div>
   ),
 }
