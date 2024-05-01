@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { Layout, useAuthContext } from './components/layout'
 import { SignInPage } from './pages'
 
 const publicRoutes: RouteObject[] = [
@@ -24,10 +25,18 @@ const privateRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />,
+    children: [
+      {
+        children: privateRoutes,
+        element: <PrivateRoutes />,
+      },
+      {
+        children: publicRoutes,
+        element: <PublicRoutes />,
+      },
+    ],
+    element: <Layout />,
   },
-  ...publicRoutes,
 ])
 
 export const Router = () => {
@@ -35,7 +44,12 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = false
+  const { isAuthenticated } = useAuthContext()
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+}
+function PublicRoutes() {
+  const { isAuthenticated } = useAuthContext()
+
+  return isAuthenticated ? <Navigate to={'/'} /> : <Outlet />
 }
