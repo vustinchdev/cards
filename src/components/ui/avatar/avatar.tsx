@@ -9,7 +9,7 @@ export type AvatarProps = {
   avatar?: string
 } & ComponentPropsWithoutRef<'img'>
 
-export const Avatar = ({ avatar, className, ...rest }: AvatarProps) => {
+export const Avatar = ({ avatar, className, src, ...rest }: AvatarProps) => {
   const classNames = {
     avatar: clsx(s.avatar, className),
   }
