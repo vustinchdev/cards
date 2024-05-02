@@ -1,6 +1,7 @@
 import { Outlet, useOutletContext } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 
+import { ErrorToast } from '@/common'
 import { useLogoutMutation, useMeQuery } from '@/services'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -34,6 +35,7 @@ export const Layout = () => {
 
   return (
     <div className={classNames.layout}>
+      <ErrorToast />
       <Header
         avatar={dataMe?.avatar ?? ''}
         email={dataMe?.email ?? ''}
