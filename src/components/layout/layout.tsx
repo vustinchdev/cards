@@ -1,6 +1,9 @@
 import { Outlet, useOutletContext } from 'react-router-dom'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 import { useLogoutMutation, useMeQuery } from '@/services'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 import s from './layout.module.scss'
 
@@ -41,6 +44,19 @@ export const Layout = () => {
       <main className={classNames.content}>
         <Outlet context={{ isAuthenticated } satisfies AuthContext} />
       </main>
+      <ToastContainer
+        autoClose={5000}
+        closeOnClick
+        draggable={false}
+        hideProgressBar={false}
+        newestOnTop
+        pauseOnFocusLoss={false}
+        pauseOnHover
+        position={'bottom-left'}
+        rtl={false}
+        theme={'dark'}
+        transition={Bounce}
+      />
     </div>
   )
 }
