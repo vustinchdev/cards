@@ -14,16 +14,12 @@ const CardPolymorph = <T extends ElementType>(
   props: CardProps<T>,
   ref: ForwardedRef<InferType<T>>
 ) => {
-  const { as: Component = 'div', children, className, ...rest } = props
+  const { as: Component = 'div', className, ...rest } = props
   const classNames = {
     root: clsx(s.root, className),
   }
 
-  return (
-    <Component className={classNames.root} ref={ref} {...rest}>
-      {children}
-    </Component>
-  )
+  return <Component className={classNames.root} ref={ref} {...rest} />
 }
 
 export const Card = forwardRef(CardPolymorph) as <T extends ElementType = 'div'>(

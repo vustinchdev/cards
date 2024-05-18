@@ -24,14 +24,10 @@ export type TypographyProps<T extends ElementType = 'p'> = {
 } & ComponentPropsWithoutRef<T>
 
 export const Typography = <T extends ElementType = 'p'>(props: TypographyProps<T>) => {
-  const { as: Component = 'p', children, className, variant = 'body2', ...rest } = props
+  const { as: Component = 'p', className, variant = 'body2', ...rest } = props
   const classNames = {
     root: clsx(s[variant], className),
   }
 
-  return (
-    <Component className={classNames.root} {...rest}>
-      {children}
-    </Component>
-  )
+  return <Component className={classNames.root} {...rest} />
 }
