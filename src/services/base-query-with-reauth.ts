@@ -7,7 +7,17 @@ import { Mutex } from 'async-mutex'
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.flashcards.andrii.es',
-  credentials: 'include',
+  prepareHeaders: headers => {
+    const token = localStorage.getItem('accessToken')
+
+    if (headers.get('Authorization')) {
+      return headers
+    }
+
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`)
+    }
+  },
 })
 
 export const baseQueryWithReauth: BaseQueryFn<
@@ -23,13 +33,21 @@ export const baseQueryWithReauth: BaseQueryFn<
       const release = await mutex.acquire()
 
       try {
-        const refreshResult = await baseQuery(
-          { method: 'POST', url: '/v2/auth/refresh-token' },
+        const refreshToken = localStorage.getItem('refreshToken')
+        const refreshResult: any = await baseQuery(
+          {
+            headers: { Authorization: `Bearer ${refreshToken}` },
+            method: 'POST',
+            url: '/v2/auth/refresh-token',
+          },
           api,
           extraOptions
         )
 
-        if (refreshResult.meta?.response?.status === 204) {
+        if (refreshResult.data) {
+          localStorage.setItem('accessToken', refreshResult.data.accessToken.trim())
+          localStorage.setItem('refreshToken', refreshResult.data.refreshToken.trim())
+
           result = await baseQuery(args, api, extraOptions)
         } else {
           router.navigate('/login')

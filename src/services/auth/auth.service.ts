@@ -6,6 +6,16 @@ export const authService = baseApi.injectEndpoints({
     return {
       login: builder.mutation<LoginResponse, LoginArgs>({
         invalidatesTags: ['Auth'],
+        async onQueryStarted(_, { queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          if (!data) {
+            return
+          }
+
+          localStorage.setItem('accessToken', data.accessToken)
+          localStorage.setItem('refreshToken', data.refreshToken)
+        },
         query: body => ({
           body,
           method: 'POST',
@@ -14,9 +24,16 @@ export const authService = baseApi.injectEndpoints({
       }),
       logout: builder.mutation<void, void>({
         invalidatesTags: ['Auth'],
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          await queryFulfilled
+
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('refreshToken')
+          dispatch(authService.util.resetApiState())
+        },
         query: () => ({
           method: 'POST',
-          url: '/v1/auth/logout',
+          url: '/v2/auth/logout',
         }),
       }),
       me: builder.query<MeResponse, void>({
