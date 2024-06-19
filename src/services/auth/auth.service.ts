@@ -1,5 +1,5 @@
 import { baseApi } from '../base-api'
-import { LoginArgs, LoginResponse, MeResponse } from './auth.types'
+import { LoginArgs, LoginResponse, MeResponse, SignUpArgs, SignUpResponse } from './auth.types'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -42,8 +42,25 @@ export const authService = baseApi.injectEndpoints({
           url: '/v1/auth/me',
         }),
       }),
+      signUp: builder.mutation<SignUpResponse, SignUpArgs>({
+        query: params => {
+          const origin = window.location.origin
+
+          return {
+            body: {
+              ...params,
+              html: `<b>Hello, ##name##!</b><br/>Please confirm your email by clicking on the link below:<br/><a href="${origin}/confirm-email/##token##">Confirm email</a>. If it doesn't work, copy and paste the following link in your browser:<br/>${origin}/confirm-email/##token##`,
+              name: '',
+              subject: 'Verify your email address',
+            },
+            method: 'POST',
+            sendConfirmationEmail: true,
+            url: '/v1/auth/sign-up',
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery } = authService
+export const { useLoginMutation, useLogoutMutation, useMeQuery, useSignUpMutation } = authService

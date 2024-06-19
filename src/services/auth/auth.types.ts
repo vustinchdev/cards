@@ -18,3 +18,18 @@ export type MeResponse = {
   name: string
   updated: string
 }
+
+export type SignUpArgs = {
+  email: string
+  password: string
+}
+
+export type SignUpResponse = {
+  avatar: string
+  created: string
+  email: string
+  id: string
+  isEmailVerified: boolean
+  name: string
+  updated: string
+}

@@ -9,7 +9,7 @@ import { z } from 'zod'
 import s from './sign-up.module.scss'
 
 type Props = {
-  onSubmit: (data: FormValues) => void
+  onSubmit: (data: Omit<FormValues, 'confirmPassword'>) => void
 }
 
 type FormValues = z.infer<typeof signUpSchema>
