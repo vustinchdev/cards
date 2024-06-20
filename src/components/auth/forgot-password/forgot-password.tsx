@@ -11,10 +11,10 @@ import s from './forgot-password.module.scss'
 type FormValues = z.infer<typeof emailSchema>
 
 type Props = {
-  handlePasswordRecover: (data: FormValues) => void
+  onPasswordRecover: ({ email }: FormValues) => void
 }
 
-export const ForgotPassword = ({ handlePasswordRecover }: Props) => {
+export const ForgotPassword = ({ onPasswordRecover }: Props) => {
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(emailSchema),
   })
@@ -27,8 +27,8 @@ export const ForgotPassword = ({ handlePasswordRecover }: Props) => {
     title: s.title,
   }
 
-  const onSubmit = (data: FormValues) => {
-    handlePasswordRecover(data)
+  const onSubmit = ({ email }: FormValues) => {
+    onPasswordRecover({ email })
   }
 
   return (

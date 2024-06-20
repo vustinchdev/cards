@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { Layout, useAuthContext } from './components/layout'
-import { CheckEmailPage, SignInPage, SignUpPage } from './pages'
+import { CheckEmailPage, ForgotPasswordPage, SignInPage, SignUpPage } from './pages'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -21,6 +21,10 @@ const publicRoutes: RouteObject[] = [
   {
     element: <CheckEmailPage />,
     path: '/check-email',
+  },
+  {
+    element: <ForgotPasswordPage />,
+    path: '/forgot-password',
   },
 ]
 
