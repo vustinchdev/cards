@@ -45,16 +45,17 @@ export const authService = baseApi.injectEndpoints({
       signUp: builder.mutation<SignUpResponse, SignUpArgs>({
         query: params => {
           const origin = window.location.origin
+          const name = params.email.slice(0, params.email.indexOf('@'))
 
           return {
             body: {
               ...params,
               html: `<b>Hello, ##name##!</b><br/>Please confirm your email by clicking on the link below:<br/><a href="${origin}/confirm-email/##token##">Confirm email</a>. If it doesn't work, copy and paste the following link in your browser:<br/>${origin}/confirm-email/##token##`,
-              name: '',
+              name,
+              sendConfirmationEmail: true,
               subject: 'Verify your email address',
             },
             method: 'POST',
-            sendConfirmationEmail: true,
             url: '/v1/auth/sign-up',
           }
         },

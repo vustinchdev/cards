@@ -28,7 +28,7 @@ export const CheckEmail = ({ email }: Props) => {
       <Typography className={classNames.instructions} variant={'body2'}>
         We’ve sent an Email with instructions to {email}
       </Typography>
-      <Button as={Link} to={'#'}>
+      <Button as={Link} to={'/login'}>
         Back to Sign In
       </Button>
     </Card>

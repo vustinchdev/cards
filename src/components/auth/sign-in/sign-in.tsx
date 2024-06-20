@@ -54,7 +54,7 @@ export const SignIn = ({ onSubmit }: Props) => {
       </div>
 
       <FormCheckbox control={control} id={'rememberMe'} label={'Remember me'} name={'rememberMe'} />
-      <Typography as={'a'} className={classNames.forgotPasswordLink} href={'#'}>
+      <Typography as={Link} className={classNames.forgotPasswordLink} to={'#'}>
         Forgot Password?
       </Typography>
       <Button fullWidth type={'submit'}>
@@ -63,7 +63,7 @@ export const SignIn = ({ onSubmit }: Props) => {
       <Typography className={classNames.caption} variant={'body2'}>
         Don{"'"}t have an account?
       </Typography>
-      <Typography as={Link} className={classNames.signUpLink} to={'#'} variant={'link1'}>
+      <Typography as={Link} className={classNames.signUpLink} to={'/sign-up'} variant={'link1'}>
         Sign Up
       </Typography>
     </Card>

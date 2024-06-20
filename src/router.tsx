@@ -7,12 +7,20 @@ import {
 } from 'react-router-dom'
 
 import { Layout, useAuthContext } from './components/layout'
-import { SignInPage } from './pages'
+import { CheckEmailPage, SignInPage, SignUpPage } from './pages'
 
 const publicRoutes: RouteObject[] = [
   {
     element: <SignInPage />,
     path: '/login',
+  },
+  {
+    element: <SignUpPage />,
+    path: '/sign-up',
+  },
+  {
+    element: <CheckEmailPage />,
+    path: '/check-email',
   },
 ]
 
