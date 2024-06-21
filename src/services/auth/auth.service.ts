@@ -1,5 +1,12 @@
 import { baseApi } from '../base-api'
-import { LoginArgs, LoginResponse, MeResponse, SignUpArgs, SignUpResponse } from './auth.types'
+import {
+  LoginArgs,
+  LoginResponse,
+  MeResponse,
+  ResetPasswordArgs,
+  SignUpArgs,
+  SignUpResponse,
+} from './auth.types'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -43,14 +50,25 @@ export const authService = baseApi.injectEndpoints({
         }),
       }),
       recoverPassword: builder.mutation<void, { email: string }>({
-        query: ({ email }) => ({
-          body: {
-            email,
-            html: '<h1>Hi, ##name##</h1><p>Click <a href="##token##">here</a> to recover your password</p>',
-            subject: 'Recover password',
-          },
+        query: ({ email }) => {
+          const origin = window.location.origin
+
+          return {
+            body: {
+              email,
+              html: `<h1>Hi, ##name##</h1><p>Click <a href='${origin}/create-new-password/##token##'>here</a> to recover your password</p>`,
+              subject: 'Recover password',
+            },
+            method: 'POST',
+            url: '/v1/auth/recover-password',
+          }
+        },
+      }),
+      resetPassword: builder.mutation<void, ResetPasswordArgs>({
+        query: ({ password, token }) => ({
+          body: password,
           method: 'POST',
-          url: '/v1/auth/recover-password',
+          url: `/v1/auth/reset-password/${token}`,
         }),
       }),
       signUp: builder.mutation<SignUpResponse, SignUpArgs>({
@@ -80,5 +98,6 @@ export const {
   useLogoutMutation,
   useMeQuery,
   useRecoverPasswordMutation,
+  useResetPasswordMutation,
   useSignUpMutation,
 } = authService

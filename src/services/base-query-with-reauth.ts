@@ -49,8 +49,6 @@ export const baseQueryWithReauth: BaseQueryFn<
           localStorage.setItem('refreshToken', refreshResult.data.refreshToken.trim())
 
           result = await baseQuery(args, api, extraOptions)
-        } else {
-          router.navigate('/login')
         }
       } finally {
         release()

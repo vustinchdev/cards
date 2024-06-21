@@ -24,6 +24,12 @@ export const emailSchema = z.object({
   email,
 })
 
-export const passwordSchema = z.object({
-  password,
-})
+export const passwordSchema = z
+  .object({
+    confirmPassword: password,
+    password,
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  })

@@ -33,3 +33,8 @@ export type SignUpResponse = {
   name: string
   updated: string
 }
+
+export type ResetPasswordArgs = {
+  password: string
+  token: string
+}

@@ -9,12 +9,12 @@ import s from './create-new-password.module.scss'
 
 type FormValues = z.infer<typeof passwordSchema>
 type Props = {
-  onSubmit: (data: FormValues) => void
+  onSubmit: ({ password }: FormValues) => void
 }
 
 export const CreateNewPassword = ({ onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: { password: '' },
+    defaultValues: { confirmPassword: '', password: '' },
     resolver: zodResolver(passwordSchema),
   })
 
@@ -33,6 +33,13 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
         control={control}
         label={'Password'}
         name={'password'}
+        placeholder={'YourPassword123'}
+        type={'password'}
+      />
+      <FormInput
+        control={control}
+        label={'Confirm Password'}
+        name={'confirmPassword'}
         placeholder={'YourPassword123'}
         type={'password'}
       />
