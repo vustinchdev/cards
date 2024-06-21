@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>
 
 export const ForgotPasswordDefault: Story = {
   args: {
-    handlePasswordRecover: () => {},
+    onPasswordRecover: () => {},
   },
   render: args => {
     return (
