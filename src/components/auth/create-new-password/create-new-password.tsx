@@ -21,6 +21,7 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
   const classNames = {
     card: s.card,
     instructions: s.instructions,
+    password: s.password,
     title: s.title,
   }
 
@@ -30,6 +31,7 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
         Create new password
       </Typography>
       <FormInput
+        className={classNames.password}
         control={control}
         label={'Password'}
         name={'password'}
