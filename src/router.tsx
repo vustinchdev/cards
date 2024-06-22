@@ -11,6 +11,7 @@ import {
   CheckEmailPage,
   CreateNewPasswordPage,
   ForgotPasswordPage,
+  ProfilePage,
   SignInPage,
   SignUpPage,
 } from './pages'
@@ -42,6 +43,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <div>hello</div>,
     path: '/',
+  },
+  {
+    element: <ProfilePage />,
+    path: '/profile',
   },
 ]
 

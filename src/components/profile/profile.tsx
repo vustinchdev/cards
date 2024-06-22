@@ -3,9 +3,9 @@ import { Card, PersonalInformation, Typography } from '@/components'
 import s from './profile.module.scss'
 
 type Props = {
-  avatar: string
-  email: string
-  name: string
+  avatar?: string
+  email?: string
+  name?: string
 }
 
 export const Profile = ({ ...props }: Props) => {

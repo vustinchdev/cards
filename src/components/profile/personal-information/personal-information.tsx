@@ -5,9 +5,9 @@ import { useLogoutMutation } from '@/services'
 import s from './personal-information.module.scss'
 
 type Props = {
-  avatar: string
-  email: string
-  name: string
+  avatar?: string
+  email?: string
+  name?: string
 }
 
 export const PersonalInformation = ({ avatar, email, name }: Props) => {

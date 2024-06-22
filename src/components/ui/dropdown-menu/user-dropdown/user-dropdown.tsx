@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { LogOutIcon, PersonOutlineIcon } from '@/assets'
 import { Avatar, Typography } from '@/components'
 
@@ -26,6 +28,7 @@ export const UserDropdown = ({ avatar, email, name, onSignOut }: UserDropdownPro
     label: s.label,
     menuItem: s.menuItem,
     name: s.name,
+    profile: s.profile,
     trigger: s.trigger,
     userInfo: s.userInfo,
   }
@@ -51,7 +54,9 @@ export const UserDropdown = ({ avatar, email, name, onSignOut }: UserDropdownPro
         <DropdownMenuSeparator />
         <DropdownMenuItem className={classNames.menuItem}>
           <PersonOutlineIcon />
-          <Typography variant={'caption'}>My profile</Typography>
+          <Typography as={Link} className={classNames.profile} to={'/profile'} variant={'caption'}>
+            My profile
+          </Typography>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className={classNames.menuItem} onSelect={onSignOut}>
