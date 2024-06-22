@@ -1,5 +1,7 @@
 import { Edit2Outline, LogOutIcon, defaultAvatar } from '@/assets'
-import { Button, Card, Typography } from '@/components'
+import { Avatar, Button, Card, Typography } from '@/components'
+
+import s from './profile.module.scss'
 
 type Props = {
   avatar: string
@@ -9,27 +11,39 @@ type Props = {
 }
 
 export const Profile = ({ avatar, email, name, onLogout }: Props) => {
+  const classNames = {
+    avatar: s.avatar,
+    avatarContainer: s.avatarContainer,
+    card: s.card,
+    email: s.email,
+    inputFile: s.inputFile,
+    label: s.label,
+    nameContainer: s.nameContainer,
+    title: s.title,
+  }
   const handleLogout = () => {
     onLogout()
   }
 
   return (
-    <Card>
-      <Typography as={'h1'}>Personal Information</Typography>
-      <div>
-        <img alt={'avatar'} src={defaultAvatar ?? avatar} />
-        <label htmlFor={'avatar'}>
+    <Card className={classNames.card}>
+      <Typography className={classNames.title} variant={'h1'}>
+        Personal Information
+      </Typography>
+      <div className={classNames.avatarContainer}>
+        <Avatar alt={'avatar'} className={classNames.avatar} src={defaultAvatar ?? avatar} />
+        <label className={classNames.label} htmlFor={'avatar'}>
           <Edit2Outline />
         </label>
-        <input id={'avatar'} name={'avatar'} type={'file'} />
+        <input className={classNames.inputFile} id={'avatar'} name={'avatar'} type={'file'} />
       </div>
-      <div>
-        <Typography as={'h2'}>{name}</Typography>
+      <div className={classNames.nameContainer}>
+        <Typography variant={'h2'}>{name}</Typography>
         <Button variant={'icon'}>
           <Edit2Outline />
         </Button>
       </div>
-      <Typography>{email}</Typography>
+      <Typography className={classNames.email}>{email}</Typography>
       <Button onClick={handleLogout} variant={'secondary'}>
         <LogOutIcon /> Logout
       </Button>
