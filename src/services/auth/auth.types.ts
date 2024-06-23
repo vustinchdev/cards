@@ -38,3 +38,8 @@ export type ResetPasswordArgs = {
   password: string
   token: string
 }
+
+export type UpdateUserDataArgs = {
+  avatar?: File | null
+  name?: string
+}

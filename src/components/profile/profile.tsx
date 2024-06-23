@@ -1,4 +1,6 @@
-import { Card, PersonalInformation, Typography } from '@/components'
+import { useState } from 'react'
+
+import { Card, EditName, PersonalInformation, Typography } from '@/components'
 
 import s from './profile.module.scss'
 
@@ -8,16 +10,16 @@ type Props = {
   name?: string
 }
 
-export const Profile = ({ ...props }: Props) => {
+export const Profile = (props: Props) => {
   const classNames = {
-    avatar: s.avatar,
-    avatarContainer: s.avatarContainer,
     card: s.card,
-    email: s.email,
-    inputFile: s.inputFile,
-    label: s.label,
-    nameContainer: s.nameContainer,
     title: s.title,
+  }
+
+  const [editMode, setEditMode] = useState(false)
+
+  const handleSetEditMode = () => {
+    setEditMode(!editMode)
   }
 
   return (
@@ -25,7 +27,11 @@ export const Profile = ({ ...props }: Props) => {
       <Typography className={classNames.title} variant={'h1'}>
         Personal Information
       </Typography>
-      <PersonalInformation {...props} />
+      {editMode ? (
+        <EditName avatar={props.avatar} name={props.name} onEditName={handleSetEditMode} />
+      ) : (
+        <PersonalInformation {...props} onEditName={handleSetEditMode} />
+      )}
     </Card>
   )
 }

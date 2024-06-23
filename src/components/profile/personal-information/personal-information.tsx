@@ -8,9 +8,10 @@ type Props = {
   avatar?: string
   email?: string
   name?: string
+  onEditName: () => void
 }
 
-export const PersonalInformation = ({ avatar, email, name }: Props) => {
+export const PersonalInformation = ({ avatar, email, name, onEditName }: Props) => {
   const classNames = {
     avatar: s.avatar,
     avatarContainer: s.avatarContainer,
@@ -22,6 +23,10 @@ export const PersonalInformation = ({ avatar, email, name }: Props) => {
   }
 
   const [logout] = useLogoutMutation()
+
+  const handleSetEditMode = () => {
+    onEditName()
+  }
 
   const handleLogout = () => {
     logout()
@@ -38,7 +43,7 @@ export const PersonalInformation = ({ avatar, email, name }: Props) => {
       </div>
       <div className={classNames.nameContainer}>
         <Typography variant={'h2'}>{name}</Typography>
-        <Button variant={'icon'}>
+        <Button onClick={handleSetEditMode} variant={'icon'}>
           <Edit2Outline />
         </Button>
       </div>

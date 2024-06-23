@@ -6,6 +6,7 @@ import {
   ResetPasswordArgs,
   SignUpArgs,
   SignUpResponse,
+  UpdateUserDataArgs,
 } from './auth.types'
 
 export const authService = baseApi.injectEndpoints({
@@ -89,6 +90,26 @@ export const authService = baseApi.injectEndpoints({
           }
         },
       }),
+      updateUserData: builder.mutation<MeResponse, UpdateUserDataArgs>({
+        invalidatesTags: ['Auth'],
+
+        query: ({ avatar, name }) => {
+          const formData = new FormData()
+
+          if (avatar) {
+            formData.append('avatar', avatar)
+          }
+          if (name) {
+            formData.append('name', name)
+          }
+
+          return {
+            body: formData,
+            method: 'PATCH',
+            url: '/v1/auth/me',
+          }
+        },
+      }),
     }
   },
 })
@@ -100,4 +121,5 @@ export const {
   useRecoverPasswordMutation,
   useResetPasswordMutation,
   useSignUpMutation,
+  useUpdateUserDataMutation,
 } = authService
