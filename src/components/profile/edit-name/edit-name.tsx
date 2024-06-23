@@ -6,6 +6,8 @@ import { useUpdateUserDataMutation } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+import s from './edit-name.module.scss'
+
 type Props = {
   avatar?: string
   name?: string
@@ -15,6 +17,11 @@ type Props = {
 type FormValues = z.infer<typeof nameSchema>
 
 export const EditName = ({ avatar, name, onEditName }: Props) => {
+  const classNames = {
+    avatar: s.avatar,
+    container: s.container,
+    formInput: s.formInput,
+  }
   const { control, handleSubmit } = useForm<{ name: string }>({
     defaultValues: {
       name,
@@ -30,9 +37,14 @@ export const EditName = ({ avatar, name, onEditName }: Props) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleChangeName)}>
-      <Avatar src={avatar} />
-      <FormInput control={control} label={'Nickname'} name={'name'} />
+    <form className={classNames.container} onSubmit={handleSubmit(handleChangeName)}>
+      <Avatar className={classNames.avatar} src={avatar} />
+      <FormInput
+        className={classNames.formInput}
+        control={control}
+        label={'Nickname'}
+        name={'name'}
+      />
       <Button fullWidth type={'submit'}>
         Save Changes
       </Button>

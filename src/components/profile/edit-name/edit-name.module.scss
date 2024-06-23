@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 12px;
+}
+
+.formInput {
+  margin-bottom: 36px;
+}
