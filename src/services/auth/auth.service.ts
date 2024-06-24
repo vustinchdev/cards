@@ -13,7 +13,6 @@ export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       login: builder.mutation<LoginResponse, LoginArgs>({
-        invalidatesTags: ['Auth'],
         async onQueryStarted(_, { queryFulfilled }) {
           const { data } = await queryFulfilled
 
