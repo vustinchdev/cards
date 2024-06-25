@@ -3,8 +3,8 @@ import { createSlice, isRejected } from '@reduxjs/toolkit'
 const slice = createSlice({
   extraReducers: builder => {
     builder.addMatcher(isRejected, (state, action: any) => {
-      if (action.payload?.data?.errorMessages?.[0]?.message) {
-        state.error = action.payload.data.errorMessages[0].message
+      if (action.payload?.data?.errorMessages?.[0]) {
+        state.error = action.payload.data.errorMessages[0]
       } else if (action.payload?.data?.message) {
         state.error = action.payload.data.message
       } else {
