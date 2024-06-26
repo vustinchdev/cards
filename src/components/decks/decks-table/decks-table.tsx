@@ -1,11 +1,5 @@
-import {
-  Table,
-  TableBody,
-  TableBodyCell,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from '@/components/ui'
+import { Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow } from '@/components'
+import { formatDate } from '@/utils'
 
 type TableColumnNameItem = {
   accessor: string
@@ -58,7 +52,7 @@ export const DecksTable = ({ decks }: Props) => {
             <TableRow key={deck.id}>
               <TableBodyCell>{deck.name}</TableBodyCell>
               <TableBodyCell>{deck.cardsCount}</TableBodyCell>
-              <TableBodyCell>{deck.updated}</TableBodyCell>
+              <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
               <TableBodyCell>{deck.author.name}</TableBodyCell>
               <TableBodyCell></TableBodyCell>
             </TableRow>
