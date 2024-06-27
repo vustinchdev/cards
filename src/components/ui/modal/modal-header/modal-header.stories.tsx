@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Modal, ModalContent, ModalTrigger } from '@/components'
+
 import { ModalHeader } from '.'
-import { Modal, ModalContent, ModalTrigger } from '../modal'
 
 const meta = {
   argTypes: {},
