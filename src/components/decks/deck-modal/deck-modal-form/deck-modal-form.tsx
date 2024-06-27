@@ -2,9 +2,8 @@ import { useForm } from 'react-hook-form'
 
 import { FormCheckbox, FormInput } from '@/components'
 import { deckModalFormSchema } from '@/schemas'
+import { Deck } from '@/services'
 import { z } from 'zod'
-
-import { Deck } from '../../decks-table'
 
 type Props = {
   deck?: Deck

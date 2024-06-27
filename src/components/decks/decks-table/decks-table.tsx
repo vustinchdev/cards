@@ -1,4 +1,5 @@
 import { Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow } from '@/components'
+import { Deck } from '@/services'
 import { formatDate } from '@/utils'
 
 type TableColumnNameItem = {
@@ -6,26 +7,8 @@ type TableColumnNameItem = {
   title: string
 }
 
-export type Deck = {
-  author: Author
-  cardsCount: number
-  cover: string
-  created: string
-  id: string
-  isFavorite: boolean
-  isPrivate: boolean
-  name: string
-  updated: string
-  userId: string
-}
-
-export type Author = {
-  id: string
-  name: string
-}
-
 type Props = {
-  decks: Deck[]
+  decks: Deck[] | undefined
 }
 
 const columns: TableColumnNameItem[] = [
@@ -47,7 +30,7 @@ export const DecksTable = ({ decks }: Props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {decks.map(deck => {
+        {decks?.map(deck => {
           return (
             <TableRow key={deck.id}>
               <TableBodyCell>{deck.name}</TableBodyCell>

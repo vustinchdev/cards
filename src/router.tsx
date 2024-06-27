@@ -6,10 +6,11 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { Layout, useAuthContext } from './components/layout'
+import { Layout, useAuthContext } from './components'
 import {
   CheckEmailPage,
   CreateNewPasswordPage,
+  DecksPage,
   ForgotPasswordPage,
   ProfilePage,
   SignInPage,
@@ -41,7 +42,7 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <div>hello</div>,
+    element: <DecksPage />,
     path: '/',
   },
   {
