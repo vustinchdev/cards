@@ -31,7 +31,7 @@ export type Pagination = {
 export type GetDecksArgs = {
   authorId?: string
   currentPage?: number
-  favoritedBy: string
+  favoritedBy?: string
   itemsPerPage?: number
   maxCardsCount?: number
   minCardsCount?: number
