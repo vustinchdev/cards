@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 
-import { DecksTable, Pagination } from '@/components'
-import { useGetDecksQuery } from '@/services'
+import { DeckModal, DecksTable, Pagination } from '@/components'
+import { CreateDeckArgs, useCreateDeckMutation, useGetDecksQuery } from '@/services'
 
 export const DecksPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -11,6 +11,7 @@ export const DecksPage = () => {
     currentPage: +currentPage,
     itemsPerPage: +itemsPerPage,
   })
+  const [createDeck] = useCreateDeckMutation()
 
   const decks = decksData?.items
   const totalItemsCount = decksData?.pagination.totalItems || 0
@@ -26,8 +27,15 @@ export const DecksPage = () => {
     searchParams.set('itemsPerPage', String(itemsPerPage))
   }
 
+  const handleAddNewDeck = (data: CreateDeckArgs) => {
+    createDeck(data)
+    searchParams.set('currentPage', '1')
+    setSearchParams(searchParams)
+  }
+
   return (
     <div>
+      <DeckModal onSubmit={handleAddNewDeck} title={'Add New Deck'} />
       <DecksTable decks={decks} />
       <Pagination
         currentPage={+currentPage}

@@ -1,5 +1,5 @@
 export type Deck = {
-  author: Author
+  author: DeckAuthor
   cardsCount: number
   cover: string
   created: string
@@ -11,7 +11,7 @@ export type Deck = {
   userId: string
 }
 
-export type Author = {
+export type DeckAuthor = {
   id: string
   name: string
 }
@@ -37,4 +37,21 @@ export type GetDecksArgs = {
   minCardsCount?: number
   name?: string
   orderBy?: string
+}
+
+export type CreateDeckArgs = {
+  cover?: File | null
+  isPrivate?: boolean
+  name: string
+}
+
+export type CreateDeckResponse = {
+  cardsCount: number
+  cover: string
+  created: string
+  id: string
+  isPrivate: boolean
+  name: string
+  updated: string
+  userId: string
 }

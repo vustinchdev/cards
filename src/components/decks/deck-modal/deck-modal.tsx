@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Edit2Outline, TrashOutlineIcon } from '@/assets'
 import {
   Button,
@@ -8,16 +10,31 @@ import {
   ModalHeader,
   ModalTrigger,
 } from '@/components'
+import { CreateDeckArgs, Deck } from '@/services'
 
-type Title = 'Add New Deck' | 'Delete Deck' | 'Edit Deck'
+import { DeckModalForm } from './deck-modal-form'
+
+export type DeckModalTitle = 'Add New Deck' | 'Delete Deck' | 'Edit Deck'
 
 type Props = {
-  title: Title
+  deck?: Deck
+  onSubmit: (data: CreateDeckArgs) => void
+  title: DeckModalTitle
 }
 
-export const DeckModal = ({ title }: Props) => {
+export const DeckModal = ({ deck, onSubmit, title }: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleDataConfirm = (data: CreateDeckArgs) => {
+    onSubmit(data)
+  }
+
+  const handleCancel = () => {
+    setIsOpen(false)
+  }
+
   return (
-    <Modal>
+    <Modal onOpenChange={setIsOpen} open={isOpen}>
       {title === 'Add New Deck' && (
         <ModalTrigger asChild>
           <Button>Add New Deck</Button>
@@ -39,10 +56,16 @@ export const DeckModal = ({ title }: Props) => {
       )}
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
-        <ModalContentContainer>Deck Modal Form</ModalContentContainer>
+        <ModalContentContainer>
+          <DeckModalForm deck={deck} onOpenChange={setIsOpen} onSubmit={handleDataConfirm} />
+        </ModalContentContainer>
         <ModalFooter>
-          <Button variant={'secondary'}>Cancel</Button>
-          <Button>{title}</Button>
+          <Button onClick={handleCancel} variant={'secondary'}>
+            Cancel
+          </Button>
+          <Button form={'deck-form'} type={'submit'}>
+            {title}
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
