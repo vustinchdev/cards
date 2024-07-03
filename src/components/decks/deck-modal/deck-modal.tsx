@@ -1,14 +1,13 @@
 import { useState } from 'react'
 
-import { Edit2Outline, TrashOutlineIcon } from '@/assets'
 import {
   Button,
+  DeckModalTrigger,
   Modal,
   ModalContent,
   ModalContentContainer,
   ModalFooter,
   ModalHeader,
-  ModalTrigger,
 } from '@/components'
 import { CreateDeckArgs, Deck } from '@/services'
 
@@ -35,25 +34,7 @@ export const DeckModal = ({ deck, onSubmit, title }: Props) => {
 
   return (
     <Modal onOpenChange={setIsOpen} open={isOpen}>
-      {title === 'Add New Deck' && (
-        <ModalTrigger asChild>
-          <Button>Add New Deck</Button>
-        </ModalTrigger>
-      )}
-      {title === 'Delete Deck' && (
-        <ModalTrigger asChild>
-          <Button variant={'icon'}>
-            <TrashOutlineIcon />
-          </Button>
-        </ModalTrigger>
-      )}
-      {title === 'Edit Deck' && (
-        <ModalTrigger asChild>
-          <Button variant={'icon'}>
-            <Edit2Outline />
-          </Button>
-        </ModalTrigger>
-      )}
+      <DeckModalTrigger title={title} />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
         <ModalContentContainer>
