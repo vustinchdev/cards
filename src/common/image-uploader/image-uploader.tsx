@@ -1,7 +1,10 @@
 import { ChangeEvent, useState } from 'react'
 
 import { ImageOutline, defaultImage } from '@/assets'
+import { Typography } from '@/components'
 import { Deck } from '@/services'
+
+import s from './image-uploader.module.scss'
 
 type ImageUploaderProps = {
   deck?: Deck
@@ -10,6 +13,13 @@ type ImageUploaderProps = {
 }
 
 export const ImageUploader = ({ deck, handleChangeFile, imageKey }: ImageUploaderProps) => {
+  const classNames = {
+    container: s.container,
+    image: s.image,
+    inputFile: s.inputFile,
+    label: s.label,
+  }
+
   const [file, setFile] = useState<File | null>(null)
 
   const handleFileLoading = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,15 +43,25 @@ export const ImageUploader = ({ deck, handleChangeFile, imageKey }: ImageUploade
   }
 
   return (
-    <div>
+    <div className={classNames.container}>
       <div>
-        <img src={createSrc()} />
+        <img className={classNames.image} src={createSrc()} />
       </div>
-      <label htmlFor={imageKey}>
+      <Typography
+        as={'label'}
+        className={classNames.label}
+        htmlFor={imageKey}
+        variant={'subtitle2'}
+      >
         <ImageOutline />
         Upload Image
-      </label>
-      <input id={imageKey} onChange={handleFileLoading} type={'file'} />
+      </Typography>
+      <input
+        className={classNames.inputFile}
+        id={imageKey}
+        onChange={handleFileLoading}
+        type={'file'}
+      />
     </div>
   )
 }
