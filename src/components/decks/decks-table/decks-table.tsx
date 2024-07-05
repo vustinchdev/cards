@@ -1,5 +1,13 @@
-import { Table, TableBody, TableBodyCell, TableHead, TableHeadCell, TableRow } from '@/components'
-import { Deck } from '@/services'
+import {
+  DeckModal,
+  Table,
+  TableBody,
+  TableBodyCell,
+  TableHead,
+  TableHeadCell,
+  TableRow,
+} from '@/components'
+import { Deck, UpdateDeckArgs, useUpdateDeckMutation } from '@/services'
 import { formatDate } from '@/utils'
 
 type TableColumnNameItem = {
@@ -20,6 +28,12 @@ const columns: TableColumnNameItem[] = [
 ]
 
 export const DecksTable = ({ decks }: Props) => {
+  const [updateDeck] = useUpdateDeckMutation()
+
+  const handleUpdateDeck = (data: UpdateDeckArgs) => {
+    updateDeck(data)
+  }
+
   return (
     <Table>
       <TableHead>
@@ -37,7 +51,13 @@ export const DecksTable = ({ decks }: Props) => {
               <TableBodyCell>{deck.cardsCount}</TableBodyCell>
               <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
               <TableBodyCell>{deck.author.name}</TableBodyCell>
-              <TableBodyCell></TableBodyCell>
+              <TableBodyCell>
+                <DeckModal
+                  deck={deck}
+                  onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}
+                  title={'Edit Deck'}
+                />
+              </TableBodyCell>
             </TableRow>
           )
         })}

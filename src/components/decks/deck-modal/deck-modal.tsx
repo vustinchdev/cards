@@ -9,22 +9,25 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@/components'
-import { CreateDeckArgs, Deck } from '@/services'
+import { deckModalFormSchema } from '@/schemas'
+import { Deck } from '@/services'
+import { z } from 'zod'
 
 import { DeckModalForm } from './deck-modal-form'
 
 export type DeckModalTitle = 'Add New Deck' | 'Delete Deck' | 'Edit Deck'
+export type DeckDataConfirm = z.infer<typeof deckModalFormSchema>
 
 type Props = {
   deck?: Deck
-  onSubmit: (data: CreateDeckArgs) => void
+  onSubmit: (data: DeckDataConfirm) => void
   title: DeckModalTitle
 }
 
 export const DeckModal = ({ deck, onSubmit, title }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleDataConfirm = (data: CreateDeckArgs) => {
+  const handleDataConfirm = (data: DeckDataConfirm) => {
     onSubmit(data)
   }
 

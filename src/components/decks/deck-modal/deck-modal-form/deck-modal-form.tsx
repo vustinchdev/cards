@@ -1,31 +1,29 @@
 import { useForm } from 'react-hook-form'
 
 import { ImageUploader } from '@/common'
-import { FormCheckbox, FormInput } from '@/components'
-import { AddDeckModalFormSchema } from '@/schemas'
-import { CreateDeckArgs, Deck } from '@/services'
+import { DeckDataConfirm, FormCheckbox, FormInput } from '@/components'
+import { deckModalFormSchema } from '@/schemas'
+import { Deck } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 type Props = {
   deck?: Deck
   onOpenChange: (isOpen: boolean) => void
-  onSubmit: (data: CreateDeckArgs) => void
+  onSubmit: (data: DeckDataConfirm) => void
 }
 
-type FormValues = z.infer<typeof AddDeckModalFormSchema>
 type FieldNames = 'cover' | 'isPrivate' | 'name'
 
 export const DeckModalForm = ({ deck, onOpenChange, onSubmit }: Props) => {
-  const { control, handleSubmit, setValue } = useForm<FormValues>({
+  const { control, handleSubmit, setValue } = useForm<DeckDataConfirm>({
     defaultValues: {
       isPrivate: deck?.isPrivate ? deck?.isPrivate : false,
       name: deck?.name ?? '',
     },
-    resolver: zodResolver(AddDeckModalFormSchema),
+    resolver: zodResolver(deckModalFormSchema),
   })
 
-  const onDataConfirm = (data: CreateDeckArgs) => {
+  const onDataConfirm = (data: DeckDataConfirm) => {
     onSubmit(data)
     onOpenChange(false)
   }

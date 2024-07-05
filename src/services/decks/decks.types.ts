@@ -55,3 +55,10 @@ export type CreateDeckResponse = {
   updated: string
   userId: string
 }
+
+export type UpdateDeckArgs = {
+  cover?: File | null
+  id: string
+  isPrivate?: boolean
+  name?: string
+}
