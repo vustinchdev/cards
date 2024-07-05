@@ -2,8 +2,9 @@ import { useForm } from 'react-hook-form'
 
 import { ImageUploader } from '@/common'
 import { FormCheckbox, FormInput } from '@/components'
-import { deckModalFormSchema } from '@/schemas'
+import { AddDeckModalFormSchema } from '@/schemas'
 import { CreateDeckArgs, Deck } from '@/services'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
   onSubmit: (data: CreateDeckArgs) => void
 }
 
-type FormValues = z.infer<typeof deckModalFormSchema>
+type FormValues = z.infer<typeof AddDeckModalFormSchema>
 type FieldNames = 'cover' | 'isPrivate' | 'name'
 
 export const DeckModalForm = ({ deck, onOpenChange, onSubmit }: Props) => {
@@ -21,6 +22,7 @@ export const DeckModalForm = ({ deck, onOpenChange, onSubmit }: Props) => {
       isPrivate: deck?.isPrivate ? deck?.isPrivate : false,
       name: deck?.name ?? '',
     },
+    resolver: zodResolver(AddDeckModalFormSchema),
   })
 
   const onDataConfirm = (data: CreateDeckArgs) => {
