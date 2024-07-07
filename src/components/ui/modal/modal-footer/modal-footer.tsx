@@ -4,14 +4,34 @@ import clsx from 'clsx'
 
 import s from './modal-footer.module.scss'
 
-export type ModalFooterProps = ComponentPropsWithoutRef<'div'>
+import { Button } from '../../button'
+
+export type ModalFooterProps = {
+  cancelText: string
+  onCancel: () => void
+  onConfirm: () => void
+  title: string
+} & ComponentPropsWithoutRef<'div'>
 
 export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
-  ({ className, ...rest }, ref) => {
+  ({ cancelText, className, onCancel, onConfirm, title, ...rest }, ref) => {
     const classNames = {
       root: clsx(s.root, className),
     }
 
-    return <div {...rest} className={classNames.root} ref={ref} />
+    const handleCancel = () => {
+      onCancel()
+    }
+
+    const handleConfirm = () => {
+      onConfirm()
+    }
+
+    return (
+      <div {...rest} className={classNames.root} ref={ref}>
+        <Button onClick={handleCancel}>{cancelText}</Button>
+        <Button onClick={handleConfirm}>{title}</Button>
+      </div>
+    )
   }
 )
