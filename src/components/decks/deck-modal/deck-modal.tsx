@@ -60,7 +60,11 @@ export const DeckModal = ({ deck, onSubmit, title }: Props) => {
         <ModalContentContainer>
           <form onSubmit={handleDataConfirm}>
             <FormInput control={control} label={'Deck Name'} name={'name'} />
-            <ImageUploader handleChangeFile={handleFileChange('cover')} imageKey={'cover'} />
+            <ImageUploader
+              deck={deck}
+              handleChangeFile={handleFileChange('cover')}
+              imageKey={'cover'}
+            />
             <FormCheckbox control={control} label={'Private deck'} name={'isPrivate'} />
           </form>
         </ModalContentContainer>
