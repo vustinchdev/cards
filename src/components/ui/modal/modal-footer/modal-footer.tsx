@@ -29,7 +29,9 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
 
     return (
       <div {...rest} className={classNames.root} ref={ref}>
-        <Button onClick={handleCancel}>{cancelText}</Button>
+        <Button onClick={handleCancel} variant={'secondary'}>
+          {cancelText}
+        </Button>
         <Button onClick={handleConfirm}>{title}</Button>
       </div>
     )

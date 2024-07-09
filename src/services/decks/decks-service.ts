@@ -18,6 +18,13 @@ export const decksService = baseApi.injectEndpoints({
           url: '/v1/decks',
         }),
       }),
+      deleteDeck: builder.mutation<CreateDeckResponse, { id: string }>({
+        invalidatesTags: ['Decks'],
+        query: ({ id }) => ({
+          method: 'DELETE',
+          url: `/v1/decks/${id}`,
+        }),
+      }),
       getDecks: builder.query<GetPaginatedDecks, GetDecksArgs | void>({
         providesTags: ['Decks'],
         query: args => ({
@@ -51,4 +58,9 @@ export const decksService = baseApi.injectEndpoints({
   },
 })
 
-export const { useCreateDeckMutation, useGetDecksQuery, useUpdateDeckMutation } = decksService
+export const {
+  useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useGetDecksQuery,
+  useUpdateDeckMutation,
+} = decksService

@@ -1,5 +1,6 @@
 import {
   DeckModal,
+  DeleteDeckModal,
   Table,
   TableBody,
   TableBodyCell,
@@ -7,7 +8,7 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components'
-import { Deck, UpdateDeckArgs, useUpdateDeckMutation } from '@/services'
+import { Deck, UpdateDeckArgs, useDeleteDeckMutation, useUpdateDeckMutation } from '@/services'
 import { formatDate } from '@/utils'
 
 type TableColumnNameItem = {
@@ -29,9 +30,14 @@ const columns: TableColumnNameItem[] = [
 
 export const DecksTable = ({ decks }: Props) => {
   const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
 
   const handleUpdateDeck = (data: UpdateDeckArgs) => {
     updateDeck(data)
+  }
+
+  const handleDeleteDeck = (id: string) => () => {
+    deleteDeck({ id })
   }
 
   return (
@@ -56,6 +62,11 @@ export const DecksTable = ({ decks }: Props) => {
                   deck={deck}
                   onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}
                   title={'Edit Deck'}
+                />
+                <DeleteDeckModal
+                  deck={deck}
+                  onConfirm={handleDeleteDeck(deck.id)}
+                  title={'Delete Deck'}
                 />
               </TableBodyCell>
             </TableRow>
