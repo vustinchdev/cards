@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom'
+
+import { PlayCircleOutlineIcon } from '@/assets'
 import {
+  Button,
   DeckModal,
   DeleteDeckModal,
   Table,
@@ -58,6 +62,9 @@ export const DecksTable = ({ decks }: Props) => {
               <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
               <TableBodyCell>{deck.author.name}</TableBodyCell>
               <TableBodyCell>
+                <Button as={Link} to={'#'} variant={'icon'}>
+                  <PlayCircleOutlineIcon />
+                </Button>
                 <DeckModal
                   deck={deck}
                   onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}

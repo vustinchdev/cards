@@ -38,10 +38,16 @@
 
   background-color: transparent;
   border: none;
+  border-radius: 100%;
 
   &:disabled {
     cursor: not-allowed;
     color: var(--color-light-900);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-info-700);
+    outline-offset: 2px;
   }
 }
 

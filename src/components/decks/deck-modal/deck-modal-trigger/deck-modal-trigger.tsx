@@ -1,7 +1,5 @@
 import { Edit2Outline, TrashOutlineIcon } from '@/assets'
-import { Button, ModalTrigger } from '@/components/ui'
-
-import { DeckModalTitle } from '../deck-modal'
+import { Button, DeckModalTitle, ModalTrigger } from '@/components'
 
 type Props = {
   title: DeckModalTitle
