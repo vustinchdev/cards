@@ -1,11 +1,21 @@
 import { useSearchParams } from 'react-router-dom'
 
-import { DeckModal, DecksTable, Input, Pagination, Typography } from '@/components'
+import {
+  DeckModal,
+  DecksTable,
+  Input,
+  Pagination,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  Typography,
+} from '@/components'
 import { CreateDeckArgs, useCreateDeckMutation, useGetDecksQuery } from '@/services'
 
 import s from './decks-page.module.scss'
 
 export const DecksPage = () => {
+  const [createDeck] = useCreateDeckMutation()
   const classNames = {
     titleContainer: s.titleContainer,
   }
@@ -13,12 +23,13 @@ export const DecksPage = () => {
   const searchDeckName = searchParams.get('deckName') ?? ''
   const currentPage = searchParams.get('currentPage') ?? 1
   const itemsPerPage = searchParams.get('itemsPerPage') ?? 10
+  const currentTab = searchParams.get('decksToShow') ?? 'allDecks'
   const { data: decksData } = useGetDecksQuery({
+    authorId: currentTab === 'myDecks' ? '~caller' : undefined,
     currentPage: +currentPage,
     itemsPerPage: +itemsPerPage,
     name: searchDeckName,
   })
-  const [createDeck] = useCreateDeckMutation()
 
   const decks = decksData?.items
   const totalItemsCount = decksData?.pagination.totalItems || 0
@@ -53,6 +64,12 @@ export const DecksPage = () => {
     setSearchParams(searchParams)
   }
 
+  const handleChangeTab = (tabValue: string) => {
+    searchParams.set('decksToShow', tabValue)
+    searchParams.set('currentPage', '1')
+    setSearchParams(searchParams)
+  }
+
   return (
     <div>
       <div className={classNames.titleContainer}>
@@ -67,6 +84,13 @@ export const DecksPage = () => {
           search
           value={searchDeckName}
         />
+        <Tabs onValueChange={handleChangeTab} value={currentTab}>
+          <Typography>Show Decks</Typography>
+          <TabsList>
+            <TabsTrigger value={'myDecks'}>My Decks</TabsTrigger>
+            <TabsTrigger value={'allDecks'}>All Decks</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
       <DecksTable decks={decks} />
       <Pagination
