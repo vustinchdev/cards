@@ -62,3 +62,8 @@ export type UpdateDeckArgs = {
   isPrivate?: boolean
   name?: string
 }
+
+export type GetMinMaxCardsResponse = {
+  max: number
+  min: number
+}
