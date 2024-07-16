@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import {
@@ -5,31 +6,51 @@ import {
   DecksTable,
   Input,
   Pagination,
+  Slider,
   Tabs,
   TabsList,
   TabsTrigger,
   Typography,
 } from '@/components'
-import { CreateDeckArgs, useCreateDeckMutation, useGetDecksQuery } from '@/services'
+import {
+  CreateDeckArgs,
+  useCreateDeckMutation,
+  useGetDecksQuery,
+  useGetMinMaxCardsQuery,
+} from '@/services'
 
 import s from './decks-page.module.scss'
 
 export const DecksPage = () => {
-  const [createDeck] = useCreateDeckMutation()
   const classNames = {
     titleContainer: s.titleContainer,
   }
+  const [createDeck] = useCreateDeckMutation()
+  const { data: minMaxCardsCountData } = useGetMinMaxCardsQuery()
+
   const [searchParams, setSearchParams] = useSearchParams()
   const searchDeckName = searchParams.get('deckName') ?? ''
   const currentPage = searchParams.get('currentPage') ?? 1
   const itemsPerPage = searchParams.get('itemsPerPage') ?? 10
   const currentTab = searchParams.get('decksToShow') ?? 'allDecks'
+  const minCardsCount = Number(searchParams.get('minCardsCount'))
+  const maxCardsCount = Number(searchParams.get('maxCardsCount'))
   const { data: decksData } = useGetDecksQuery({
     authorId: currentTab === 'myDecks' ? '~caller' : undefined,
     currentPage: +currentPage,
     itemsPerPage: +itemsPerPage,
+    maxCardsCount,
+    minCardsCount,
     name: searchDeckName,
   })
+
+  const [cardsCount, setCardsCouunt] = useState([0, 100])
+
+  useEffect(() => {
+    if (minMaxCardsCountData) {
+      setCardsCouunt([minMaxCardsCountData?.min, minMaxCardsCountData?.max])
+    }
+  }, [minMaxCardsCountData])
 
   const decks = decksData?.items
   const totalItemsCount = decksData?.pagination.totalItems || 0
@@ -70,6 +91,13 @@ export const DecksPage = () => {
     setSearchParams(searchParams)
   }
 
+  const handleCommitCardsCount = (cardsCount: number[]) => {
+    searchParams.set('minCardsCount', String(cardsCount[0]))
+    searchParams.set('maxCardsCount', String(cardsCount[1]))
+    searchParams.set('currentPage', '1')
+    setSearchParams(searchParams)
+  }
+
   return (
     <div>
       <div className={classNames.titleContainer}>
@@ -91,6 +119,13 @@ export const DecksPage = () => {
             <TabsTrigger value={'allDecks'}>All Decks</TabsTrigger>
           </TabsList>
         </Tabs>
+        <Slider
+          max={minMaxCardsCountData?.max}
+          min={minMaxCardsCountData?.min}
+          onValueChange={setCardsCouunt}
+          onValueCommit={handleCommitCardsCount}
+          value={cardsCount}
+        />
       </div>
       <DecksTable decks={decks} />
       <Pagination
