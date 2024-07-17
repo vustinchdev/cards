@@ -12,6 +12,7 @@ import {
   TabsTrigger,
   Typography,
 } from '@/components'
+import { useDebounce } from '@/hooks'
 import {
   CreateDeckArgs,
   useCreateDeckMutation,
@@ -35,13 +36,14 @@ export const DecksPage = () => {
   const currentTab = searchParams.get('decksToShow') ?? 'allDecks'
   const minCardsCount = Number(searchParams.get('minCardsCount'))
   const maxCardsCount = Number(searchParams.get('maxCardsCount'))
+  const debounceSearchDeckName = useDebounce(searchDeckName)
   const { data: decksData } = useGetDecksQuery({
     authorId: currentTab === 'myDecks' ? '~caller' : undefined,
     currentPage: +currentPage,
     itemsPerPage: +itemsPerPage,
     maxCardsCount,
     minCardsCount,
-    name: searchDeckName,
+    name: debounceSearchDeckName,
   })
 
   const [cardsCount, setCardsCouunt] = useState([0, 100])
