@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
+import { TrashOutlineIcon } from '@/assets'
 import {
+  Button,
   DeckModal,
   DecksTable,
   Input,
@@ -46,11 +48,11 @@ export const DecksPage = () => {
     name: debounceSearchDeckName,
   })
 
-  const [cardsCount, setCardsCouunt] = useState([0, 100])
+  const [cardsCount, setCardsCount] = useState([0, 100])
 
   useEffect(() => {
     if (minMaxCardsCountData) {
-      setCardsCouunt([minMaxCardsCountData?.min, minMaxCardsCountData?.max])
+      setCardsCount([minMaxCardsCountData?.min, minMaxCardsCountData?.max])
     }
   }, [minMaxCardsCountData])
 
@@ -66,6 +68,7 @@ export const DecksPage = () => {
   const handleChangeItemsPerPage = (itemsPerPage: number) => {
     searchParams.set('currentPage', '1')
     searchParams.set('itemsPerPage', String(itemsPerPage))
+    setSearchParams(searchParams)
   }
 
   const handleAddNewDeck = (data: CreateDeckArgs) => {
@@ -100,6 +103,13 @@ export const DecksPage = () => {
     setSearchParams(searchParams)
   }
 
+  const handleClearFilters = () => {
+    if (minMaxCardsCountData) {
+      setCardsCount([minMaxCardsCountData?.min, minMaxCardsCountData?.max])
+    }
+    setSearchParams({})
+  }
+
   return (
     <div>
       <div className={classNames.titleContainer}>
@@ -121,13 +131,20 @@ export const DecksPage = () => {
             <TabsTrigger value={'allDecks'}>All Decks</TabsTrigger>
           </TabsList>
         </Tabs>
-        <Slider
-          max={minMaxCardsCountData?.max}
-          min={minMaxCardsCountData?.min}
-          onValueChange={setCardsCouunt}
-          onValueCommit={handleCommitCardsCount}
-          value={cardsCount}
-        />
+        <div>
+          <Typography>Number of cards</Typography>
+          <Slider
+            max={minMaxCardsCountData?.max}
+            min={minMaxCardsCountData?.min}
+            onValueChange={setCardsCount}
+            onValueCommit={handleCommitCardsCount}
+            value={cardsCount}
+          />
+        </div>
+        <Button onClick={handleClearFilters} variant={'secondary'}>
+          <TrashOutlineIcon />
+          Clear Filter
+        </Button>
       </div>
       <DecksTable decks={decks} />
       <Pagination
