@@ -12,7 +12,13 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components'
-import { Deck, UpdateDeckArgs, useDeleteDeckMutation, useUpdateDeckMutation } from '@/services'
+import {
+  Deck,
+  UpdateDeckArgs,
+  useDeleteDeckMutation,
+  useMeQuery,
+  useUpdateDeckMutation,
+} from '@/services'
 import { formatDate } from '@/utils'
 
 type TableColumnNameItem = {
@@ -33,6 +39,7 @@ const columns: TableColumnNameItem[] = [
 ]
 
 export const DecksTable = ({ decks }: Props) => {
+  const { data: meData } = useMeQuery()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
@@ -65,16 +72,20 @@ export const DecksTable = ({ decks }: Props) => {
                 <Button as={Link} to={'#'} variant={'icon'}>
                   <PlayCircleOutlineIcon />
                 </Button>
-                <DeckModal
-                  deck={deck}
-                  onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}
-                  title={'Edit Deck'}
-                />
-                <DeleteDeckModal
-                  deck={deck}
-                  onConfirm={handleDeleteDeck(deck.id)}
-                  title={'Delete Deck'}
-                />
+                {meData?.id === deck.userId && (
+                  <>
+                    <DeckModal
+                      deck={deck}
+                      onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}
+                      title={'Edit Deck'}
+                    />
+                    <DeleteDeckModal
+                      deck={deck}
+                      onConfirm={handleDeleteDeck(deck.id)}
+                      title={'Delete Deck'}
+                    />
+                  </>
+                )}
               </TableBodyCell>
             </TableRow>
           )
