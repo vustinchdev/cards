@@ -22,23 +22,32 @@ import {
 import { formatDate } from '@/utils'
 
 type TableColumnNameItem = {
-  accessor: string
+  accessor: DeckTableColumns
   title: string
 }
 
+export type SortableColumns = Omit<DeckTableColumns, 'abilityToEdit'>
+
 type Props = {
   decks: Deck[] | undefined
+  onSortChange: (column: SortableColumns, sortOrder: SortOrder) => void
+  sortColumn: string
+  sortOrder: string
 }
+
+export type SortOrder = 'asc' | 'desc'
+
+type DeckTableColumns = 'abilityToEdit' | 'author.name' | 'cardsCount' | 'name' | 'updated'
 
 const columns: TableColumnNameItem[] = [
   { accessor: 'name', title: 'Name' },
   { accessor: 'cardsCount', title: 'Cards' },
   { accessor: 'updated', title: 'Last Updated' },
   { accessor: 'author.name', title: 'Created by' },
-  { accessor: '', title: '' },
+  { accessor: 'abilityToEdit', title: '' },
 ]
 
-export const DecksTable = ({ decks }: Props) => {
+export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props) => {
   const { data: meData } = useMeQuery()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -51,12 +60,26 @@ export const DecksTable = ({ decks }: Props) => {
     deleteDeck({ id })
   }
 
+  const handleChangeSort = (field: SortableColumns) => () => {
+    let newSortOrder: SortOrder = 'asc'
+
+    if (field === sortColumn) {
+      newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc'
+    }
+
+    onSortChange(field, newSortOrder)
+  }
+
   return (
     <Table>
       <TableHead>
         <TableRow>
           {columns.map(column => {
-            return <TableHeadCell key={column.accessor}>{column.title}</TableHeadCell>
+            return (
+              <TableHeadCell key={column.accessor} onClick={handleChangeSort(column.accessor)}>
+                {column.title}
+              </TableHeadCell>
+            )
           })}
         </TableRow>
       </TableHead>

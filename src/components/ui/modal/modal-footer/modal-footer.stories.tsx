@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { ModalFooter } from '.'
-import { Button } from '../../button'
 
 const meta = {
   argTypes: {},
@@ -15,11 +14,7 @@ type Story = StoryObj<typeof meta>
 
 export const ModalFooterDefault: Story = {
   args: {
-    children: (
-      <>
-        <Button variant={'secondary'}>Button secondary</Button>
-        <Button variant={'primary'}>Button primary</Button>
-      </>
-    ),
+    cancelText: 'Cancel',
+    title: 'Add New Deck',
   },
 }

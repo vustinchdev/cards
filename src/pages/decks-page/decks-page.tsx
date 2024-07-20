@@ -9,6 +9,8 @@ import {
   Input,
   Pagination,
   Slider,
+  SortOrder,
+  SortableColumns,
   Tabs,
   TabsList,
   TabsTrigger,
@@ -38,6 +40,8 @@ export const DecksPage = () => {
   const currentTab = searchParams.get('decksToShow') ?? 'allDecks'
   const minCardsCount = Number(searchParams.get('minCardsCount'))
   const maxCardsCount = Number(searchParams.get('maxCardsCount'))
+  const [keySort, direction] = (searchParams.get('sortBy') ?? 'null-null').split('-')
+  const orderBy = keySort !== 'null' && `${keySort}-${direction}`
   const debounceSearchDeckName = useDebounce(searchDeckName)
   const { data: decksData } = useGetDecksQuery({
     authorId: currentTab === 'myDecks' ? '~caller' : undefined,
@@ -46,6 +50,7 @@ export const DecksPage = () => {
     maxCardsCount,
     minCardsCount,
     name: debounceSearchDeckName,
+    orderBy: orderBy ? orderBy : undefined,
   })
 
   const [cardsCount, setCardsCount] = useState([0, 100])
@@ -110,6 +115,12 @@ export const DecksPage = () => {
     setSearchParams({})
   }
 
+  const handleChangeSort = (key: SortableColumns, direction: SortOrder) => {
+    searchParams.set('sortBy', `${key}-${direction}`)
+    searchParams.set('currentPage', '1')
+    setSearchParams(searchParams)
+  }
+
   return (
     <div>
       <div className={classNames.titleContainer}>
@@ -146,7 +157,12 @@ export const DecksPage = () => {
           Clear Filter
         </Button>
       </div>
-      <DecksTable decks={decks} />
+      <DecksTable
+        decks={decks}
+        onSortChange={handleChangeSort}
+        sortColumn={keySort}
+        sortOrder={direction}
+      />
       <Pagination
         currentPage={+currentPage}
         itemsPerPage={+itemsPerPage}
