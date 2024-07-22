@@ -1,3 +1,15 @@
+.columnTitle {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
 .descIcon {
   transform: rotate(180deg);
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
 }

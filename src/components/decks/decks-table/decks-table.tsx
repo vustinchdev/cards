@@ -50,6 +50,8 @@ const columns: TableColumnNameItem[] = [
 
 export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props) => {
   const classNames = {
+    buttons: s.buttons,
+    columnTitle: s.columnTitle,
     descIcon: clsx(sortOrder === 'desc' && s.descIcon),
   }
   const { data: meData } = useMeQuery()
@@ -84,8 +86,12 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
           {columns.map(column => {
             return (
               <TableHeadCell key={column.accessor} onClick={handleChangeSort(column.accessor)}>
-                {column.title}
-                {sortColumn === column.accessor && <ArrowUpIcon className={classNames.descIcon} />}
+                <div className={classNames.columnTitle}>
+                  {column.title}
+                  {sortColumn === column.accessor && (
+                    <ArrowUpIcon className={classNames.descIcon} />
+                  )}
+                </div>
               </TableHeadCell>
             )
           })}
@@ -100,23 +106,25 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
               <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
               <TableBodyCell>{deck.author.name}</TableBodyCell>
               <TableBodyCell>
-                <Button as={Link} to={'#'} variant={'icon'}>
-                  <PlayCircleOutlineIcon />
-                </Button>
-                {meData?.id === deck.userId && (
-                  <>
-                    <DeckModal
-                      deck={deck}
-                      onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}
-                      title={'Edit Deck'}
-                    />
-                    <DeleteDeckModal
-                      deck={deck}
-                      onConfirm={handleDeleteDeck(deck.id)}
-                      title={'Delete Deck'}
-                    />
-                  </>
-                )}
+                <div className={classNames.buttons}>
+                  <Button as={Link} to={'#'} variant={'icon'}>
+                    <PlayCircleOutlineIcon />
+                  </Button>
+                  {meData?.id === deck.userId && (
+                    <>
+                      <DeckModal
+                        deck={deck}
+                        onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}
+                        title={'Edit Deck'}
+                      />
+                      <DeleteDeckModal
+                        deck={deck}
+                        onConfirm={handleDeleteDeck(deck.id)}
+                        title={'Delete Deck'}
+                      />
+                    </>
+                  )}
+                </div>
               </TableBodyCell>
             </TableRow>
           )
