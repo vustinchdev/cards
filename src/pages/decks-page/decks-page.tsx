@@ -144,8 +144,12 @@ export const DecksPage = () => {
           <Tabs onValueChange={handleChangeTab} value={currentTab}>
             <Typography>Show Decks</Typography>
             <TabsList>
-              <TabsTrigger value={'myDecks'}>My Decks</TabsTrigger>
-              <TabsTrigger value={'allDecks'}>All Decks</TabsTrigger>
+              <TabsTrigger value={'myDecks'}>
+                <Typography variant={'body1'}>My Decks</Typography>
+              </TabsTrigger>
+              <TabsTrigger value={'allDecks'}>
+                <Typography variant={'body1'}>All Decks</Typography>
+              </TabsTrigger>
             </TabsList>
           </Tabs>
           <div>
