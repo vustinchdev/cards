@@ -8,6 +8,7 @@ import {
   DeckTableColumns,
   DecksTable,
   Input,
+  Page,
   Pagination,
   Slider,
   SortOrder,
@@ -28,6 +29,9 @@ import s from './decks-page.module.scss'
 
 export const DecksPage = () => {
   const classNames = {
+    container: s.container,
+    filters: s.filters,
+    paginationContainer: s.paginationContainer,
     titleContainer: s.titleContainer,
   }
   const [createDeck] = useCreateDeckMutation()
@@ -122,55 +126,59 @@ export const DecksPage = () => {
   }
 
   return (
-    <div>
-      <div className={classNames.titleContainer}>
-        <Typography variant={'h1'}>Decks list</Typography>
-        <DeckModal onSubmit={handleAddNewDeck} title={'Add New Deck'} />
-      </div>
-      <div>
-        <Input
-          onClear={handleClear}
-          onValueChange={handleChangeSearchDeckName}
-          placeholder={'Deck Name'}
-          search
-          value={searchDeckName}
+    <Page>
+      <div className={classNames.container}>
+        <div className={classNames.titleContainer}>
+          <Typography variant={'h1'}>Decks list</Typography>
+          <DeckModal onSubmit={handleAddNewDeck} title={'Add New Deck'} />
+        </div>
+        <div className={classNames.filters}>
+          <Input
+            onClear={handleClear}
+            onValueChange={handleChangeSearchDeckName}
+            placeholder={'Deck Name'}
+            search
+            value={searchDeckName}
+          />
+          <Tabs onValueChange={handleChangeTab} value={currentTab}>
+            <Typography>Show Decks</Typography>
+            <TabsList>
+              <TabsTrigger value={'myDecks'}>My Decks</TabsTrigger>
+              <TabsTrigger value={'allDecks'}>All Decks</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <div>
+            <Typography>Number of cards</Typography>
+            <Slider
+              max={minMaxCardsCountData?.max}
+              min={minMaxCardsCountData?.min}
+              onValueChange={setCardsCount}
+              onValueCommit={handleCommitCardsCount}
+              value={cardsCount}
+            />
+          </div>
+          <Button onClick={handleClearFilters} variant={'secondary'}>
+            <TrashOutlineIcon />
+            Clear Filter
+          </Button>
+        </div>
+        <DecksTable
+          decks={decks}
+          onSortChange={handleChangeSort}
+          sortColumn={keySort}
+          sortOrder={direction}
         />
-        <Tabs onValueChange={handleChangeTab} value={currentTab}>
-          <Typography>Show Decks</Typography>
-          <TabsList>
-            <TabsTrigger value={'myDecks'}>My Decks</TabsTrigger>
-            <TabsTrigger value={'allDecks'}>All Decks</TabsTrigger>
-          </TabsList>
-        </Tabs>
-        <div>
-          <Typography>Number of cards</Typography>
-          <Slider
-            max={minMaxCardsCountData?.max}
-            min={minMaxCardsCountData?.min}
-            onValueChange={setCardsCount}
-            onValueCommit={handleCommitCardsCount}
-            value={cardsCount}
+        <div className={classNames.paginationContainer}>
+          <Pagination
+            currentPage={+currentPage}
+            itemsPerPage={+itemsPerPage}
+            onPageChange={handleChangeCurrentPage}
+            onPerPageChange={handleChangeItemsPerPage}
+            perPageOptions={perPageOptions}
+            totalItemsCount={totalItemsCount}
           />
         </div>
-        <Button onClick={handleClearFilters} variant={'secondary'}>
-          <TrashOutlineIcon />
-          Clear Filter
-        </Button>
       </div>
-      <DecksTable
-        decks={decks}
-        onSortChange={handleChangeSort}
-        sortColumn={keySort}
-        sortOrder={direction}
-      />
-      <Pagination
-        currentPage={+currentPage}
-        itemsPerPage={+itemsPerPage}
-        onPageChange={handleChangeCurrentPage}
-        onPerPageChange={handleChangeItemsPerPage}
-        perPageOptions={perPageOptions}
-        totalItemsCount={totalItemsCount}
-      />
-    </div>
+    </Page>
   )
 }

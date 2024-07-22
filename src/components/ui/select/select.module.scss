@@ -74,8 +74,11 @@
 }
 
 .item {
+  cursor: pointer;
+
   display: flex;
   align-items: center;
+
   width: 100px;
   padding: 6px 12px;
 

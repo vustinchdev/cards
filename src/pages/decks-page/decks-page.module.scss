@@ -1,5 +1,22 @@
+.container {
+  width: 100%;
+  max-width: 1036px;
+  padding: 0 15px;
+}
+
 .titleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.filters {
+  display: flex;
+  align-items: last baseline;
+  justify-content: space-between;
+  margin: 10px 0 36px;
+}
+
+.paginationContainer {
+  margin-top: 24px;
 }
