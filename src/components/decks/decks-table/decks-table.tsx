@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { PlayCircleOutlineIcon } from '@/assets'
+import { ArrowUpIcon, PlayCircleOutlineIcon } from '@/assets'
 import {
   Button,
   DeckModal,
@@ -20,34 +20,38 @@ import {
   useUpdateDeckMutation,
 } from '@/services'
 import { formatDate } from '@/utils'
+import clsx from 'clsx'
+
+import s from './decks-table.module.scss'
 
 type TableColumnNameItem = {
   accessor: DeckTableColumns
   title: string
 }
 
-export type SortableColumns = Omit<DeckTableColumns, 'abilityToEdit'>
-
 type Props = {
   decks: Deck[] | undefined
-  onSortChange: (column: SortableColumns, sortOrder: SortOrder) => void
+  onSortChange: (column: DeckTableColumns, sortOrder: SortOrder) => void
   sortColumn: string
   sortOrder: string
 }
 
 export type SortOrder = 'asc' | 'desc'
 
-type DeckTableColumns = 'abilityToEdit' | 'author.name' | 'cardsCount' | 'name' | 'updated'
+export type DeckTableColumns = 'author.name' | 'buttons' | 'cardsCount' | 'name' | 'updated'
 
 const columns: TableColumnNameItem[] = [
   { accessor: 'name', title: 'Name' },
   { accessor: 'cardsCount', title: 'Cards' },
   { accessor: 'updated', title: 'Last Updated' },
   { accessor: 'author.name', title: 'Created by' },
-  { accessor: 'abilityToEdit', title: '' },
+  { accessor: 'buttons', title: '' },
 ]
 
 export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props) => {
+  const classNames = {
+    descIcon: clsx(sortOrder === 'desc' && s.descIcon),
+  }
   const { data: meData } = useMeQuery()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -60,7 +64,10 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
     deleteDeck({ id })
   }
 
-  const handleChangeSort = (field: SortableColumns) => () => {
+  const handleChangeSort = (field: DeckTableColumns) => () => {
+    if (field === 'buttons') {
+      return
+    }
     let newSortOrder: SortOrder = 'asc'
 
     if (field === sortColumn) {
@@ -78,6 +85,7 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
             return (
               <TableHeadCell key={column.accessor} onClick={handleChangeSort(column.accessor)}>
                 {column.title}
+                {sortColumn === column.accessor && <ArrowUpIcon className={classNames.descIcon} />}
               </TableHeadCell>
             )
           })}

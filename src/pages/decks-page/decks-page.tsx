@@ -5,12 +5,12 @@ import { TrashOutlineIcon } from '@/assets'
 import {
   Button,
   DeckModal,
+  DeckTableColumns,
   DecksTable,
   Input,
   Pagination,
   Slider,
   SortOrder,
-  SortableColumns,
   Tabs,
   TabsList,
   TabsTrigger,
@@ -115,7 +115,7 @@ export const DecksPage = () => {
     setSearchParams({})
   }
 
-  const handleChangeSort = (key: SortableColumns, direction: SortOrder) => {
+  const handleChangeSort = (key: DeckTableColumns, direction: SortOrder) => {
     searchParams.set('sortBy', `${key}-${direction}`)
     searchParams.set('currentPage', '1')
     setSearchParams(searchParams)

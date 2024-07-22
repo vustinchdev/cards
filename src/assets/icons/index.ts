@@ -1,4 +1,5 @@
 export { ArrowIcon } from './arrow'
+export { ArrowUpIcon } from './arrowUp'
 export { CheckEmailIcon } from './check-email'
 export { CheckboxIndicatorIcon } from './checkbox'
 export { CloseIcon } from './close'
