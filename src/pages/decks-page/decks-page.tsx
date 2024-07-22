@@ -31,6 +31,7 @@ export const DecksPage = () => {
   const classNames = {
     container: s.container,
     filters: s.filters,
+    page: s.page,
     paginationContainer: s.paginationContainer,
     titleContainer: s.titleContainer,
   }
@@ -126,7 +127,7 @@ export const DecksPage = () => {
   }
 
   return (
-    <Page>
+    <Page className={classNames.page}>
       <div className={classNames.container}>
         <div className={classNames.titleContainer}>
           <Typography variant={'h1'}>Decks list</Typography>

@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { ForgotPassword, Page } from '@/components'
 import { useRecoverPasswordMutation } from '@/services'
 
+import s from './forgot-password-page.module.scss'
+
 export const ForgotPasswordPage = () => {
+  const classNames = {
+    page: s.page,
+  }
   const [recoverPassword] = useRecoverPasswordMutation()
   const navigate = useNavigate()
 
@@ -13,7 +18,7 @@ export const ForgotPasswordPage = () => {
   }
 
   return (
-    <Page>
+    <Page className={classNames.page}>
       <ForgotPassword onPasswordRecover={handlePasswordRecover} />
     </Page>
   )
