@@ -10,6 +10,7 @@ import { Layout, useAuthContext } from './components'
 import {
   CheckEmailPage,
   CreateNewPasswordPage,
+  DeckPage,
   DecksPage,
   ForgotPasswordPage,
   ProfilePage,
@@ -48,6 +49,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <ProfilePage />,
     path: '/profile',
+  },
+  {
+    element: <DeckPage />,
+    path: '/decks/:deckId/cards',
   },
 ]
 

@@ -11,6 +11,7 @@ import {
   TableHead,
   TableHeadCell,
   TableRow,
+  Typography,
 } from '@/components'
 import {
   Deck,
@@ -108,7 +109,9 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
                   {deck.cover && (
                     <img alt={'image of deck'} className={classNames.cover} src={deck.cover} />
                   )}
-                  {deck.name}
+                  <Typography as={Link} to={`decks/${deck.id}/cards`}>
+                    {deck.name}
+                  </Typography>
                 </div>
               </TableBodyCell>
               <TableBodyCell>{deck.cardsCount}</TableBodyCell>
