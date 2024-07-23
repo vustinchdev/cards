@@ -12,24 +12,27 @@ import { formatDate } from '@/utils'
 
 type Props = {
   cards: CardResponse[]
+  isMyDeck: boolean
 }
 
-type TableContentItem = 'answer' | 'grade' | 'question' | 'updated'
+type TableContentItem = 'answer' | 'buttons' | 'grade' | 'question' | 'updated'
 
 type TableColumnNameItem = {
   accessor: TableContentItem
   title: string
 }
 
-const columns: TableColumnNameItem[] = [
-  { accessor: 'question', title: 'Question' },
-  { accessor: 'answer', title: 'Answer' },
-  { accessor: 'updated', title: 'Last Updated' },
-  { accessor: 'grade', title: 'Grade' },
-]
+export const CardsTable = ({ cards, isMyDeck }: Props) => {
+  const columns: TableColumnNameItem[] = [
+    { accessor: 'question', title: 'Question' },
+    { accessor: 'answer', title: 'Answer' },
+    { accessor: 'updated', title: 'Last Updated' },
+    { accessor: 'grade', title: 'Grade' },
+  ]
 
-export const CardsTable = ({ cards }: Props) => {
-  const handleChangeGrade = () => {}
+  if (isMyDeck) {
+    columns.push({ accessor: 'buttons', title: '' })
+  }
 
   return (
     <Table>
@@ -48,8 +51,9 @@ export const CardsTable = ({ cards }: Props) => {
               <TableBodyCell>{card.answer}</TableBodyCell>
               <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
               <TableBodyCell>
-                <Grade maxGrade={5} onChangeGrade={handleChangeGrade} value={card.grade} />
+                <Grade maxGrade={5} value={card.grade} />
               </TableBodyCell>
+              {isMyDeck && <TableBodyCell></TableBodyCell>}
             </TableRow>
           )
         })}

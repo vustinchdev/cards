@@ -5,7 +5,7 @@ import s from './grade.module.scss'
 
 type Props = {
   maxGrade: number
-  onChangeGrade: (value: number) => void
+  onChangeGrade?: (value: number) => void
   value: number
 }
 
@@ -16,7 +16,7 @@ export const Grade = ({ maxGrade, onChangeGrade, value }: Props) => {
   const stars = Array.from({ length: maxGrade }, (_, i) => i + 1)
 
   const handleClick = (value: number) => {
-    onChangeGrade(value)
+    onChangeGrade?.(value)
   }
 
   return (
