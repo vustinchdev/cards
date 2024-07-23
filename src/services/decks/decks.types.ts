@@ -1,3 +1,5 @@
+import { CardResponse } from '../cards'
+
 export type Deck = {
   author: DeckAuthor
   cardsCount: number
@@ -66,4 +68,18 @@ export type UpdateDeckArgs = {
 export type GetMinMaxCardsResponse = {
   max: number
   min: number
+}
+
+export type GetPaginatedCardsInDeckParams = {
+  answer?: number
+  currentPage?: number
+  id: string
+  itemsPerPage?: number
+  orderBy?: string
+  question?: string
+}
+
+export type GetPaginatedCards = {
+  items: CardResponse[]
+  pagination: Pagination
 }

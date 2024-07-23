@@ -3,6 +3,8 @@ import {
   CreateDeckResponse,
   GetDecksArgs,
   GetMinMaxCardsResponse,
+  GetPaginatedCards,
+  GetPaginatedCardsInDeckParams,
   GetPaginatedDecks,
   UpdateDeckArgs,
   baseApi,
@@ -11,6 +13,13 @@ import {
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
+      GetPaginatedCardsInDeck: builder.query<GetPaginatedCards, GetPaginatedCardsInDeckParams>({
+        providesTags: ['Cards'],
+        query: ({ id, ...params }) => ({
+          params,
+          url: `/v1/decks/${id}/cards`,
+        }),
+      }),
       createDeck: builder.mutation<CreateDeckResponse, CreateDeckArgs>({
         invalidatesTags: ['Decks'],
         query: body => ({
@@ -69,5 +78,6 @@ export const {
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
+  useGetPaginatedCardsInDeckQuery,
   useUpdateDeckMutation,
 } = decksService
