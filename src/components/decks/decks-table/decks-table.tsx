@@ -52,6 +52,8 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
   const classNames = {
     buttons: s.buttons,
     columnTitle: s.columnTitle,
+    cover: s.cover,
+    deck: s.deck,
     descIcon: clsx(sortOrder === 'desc' && s.descIcon),
   }
   const { data: meData } = useMeQuery()
@@ -101,7 +103,14 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
         {decks?.map(deck => {
           return (
             <TableRow key={deck.id}>
-              <TableBodyCell>{deck.name}</TableBodyCell>
+              <TableBodyCell>
+                <div className={classNames.deck}>
+                  {deck.cover && (
+                    <img alt={'image of deck'} className={classNames.cover} src={deck.cover} />
+                  )}
+                  {deck.name}
+                </div>
+              </TableBodyCell>
               <TableBodyCell>{deck.cardsCount}</TableBodyCell>
               <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
               <TableBodyCell>{deck.author.name}</TableBodyCell>
