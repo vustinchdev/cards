@@ -1,4 +1,4 @@
-import { Outlet, useOutletContext } from 'react-router-dom'
+import { Outlet, useNavigate, useOutletContext } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 
 import { ErrorToast } from '@/common'
@@ -20,12 +20,14 @@ export function useAuthContext() {
 
 export const Layout = () => {
   const { data: dataMe, isError, isLoading } = useMeQuery()
+  const navigate = useNavigate()
   const [logout] = useLogoutMutation()
 
   const isAuthenticated = !isError && !isLoading
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
+    navigate('/login')
   }
 
   const classNames = {

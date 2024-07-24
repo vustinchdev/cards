@@ -63,10 +63,7 @@ export const router = createBrowserRouter([
         children: privateRoutes,
         element: <PrivateRoutes />,
       },
-      {
-        children: publicRoutes,
-        element: <PublicRoutes />,
-      },
+      ...publicRoutes,
     ],
     element: <Layout />,
   },
@@ -77,12 +74,7 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const { isAuthenticated } = useAuthContext()
+  const isAuthenticated = useAuthContext()
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
-}
-function PublicRoutes() {
-  const { isAuthenticated } = useAuthContext()
-
-  return isAuthenticated ? <Navigate to={'/'} /> : <Outlet />
 }
