@@ -84,3 +84,15 @@ export type GetPaginatedCards = {
   items: CardResponse[]
   pagination: Pagination
 }
+
+export type CreateCardArgs = {
+  answer: string
+  answerImg?: File | null
+  answerVideo?: File | null
+  id: string
+  question: string
+  questionImg?: File | null
+  questionVideo?: File | null
+}
+
+export type CreateCardResponse = Omit<CardResponse, 'grade'>

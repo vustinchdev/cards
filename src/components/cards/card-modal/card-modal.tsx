@@ -7,18 +7,18 @@ import { CardResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-type DataConfrim = z.infer<typeof cardScheme>
+export type CardDataConfrim = z.infer<typeof cardScheme>
 
 type FieldNames = 'answer' | 'answerImg' | 'question' | 'questionImg'
 
 type Props = {
   card?: CardResponse
-  onSubmit: (data: DataConfrim) => void
+  onSubmit: (data: CardDataConfrim) => void
   title: ModalTitle
 }
 
 export const CardModal = ({ card, onSubmit, title }: Props) => {
-  const { control, handleSubmit, setValue } = useForm<DataConfrim>({
+  const { control, handleSubmit, setValue } = useForm<CardDataConfrim>({
     defaultValues: {
       answer: card?.answer ? card.answer : '',
       answerImg: null,

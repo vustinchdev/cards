@@ -1,4 +1,6 @@
 import {
+  CreateCardArgs,
+  CreateCardResponse,
   CreateDeckArgs,
   CreateDeckResponse,
   GetDecksArgs,
@@ -20,13 +22,49 @@ export const decksService = baseApi.injectEndpoints({
           url: `/v1/decks/${id}/cards`,
         }),
       }),
+      createCard: builder.mutation<CreateCardResponse, CreateCardArgs>({
+        invalidatesTags: ['Cards', 'Deck'],
+        query: ({ id, ...body }) => {
+          const formData = new FormData()
+
+          formData.append('question', body.question)
+          formData.append('answer', body.answer)
+          if (body.questionImg) {
+            formData.append('questionImg', body.questionImg)
+          }
+          if (body.answerImg) {
+            formData.append('answerImg', body.answerImg)
+          }
+          if (body.questionVideo) {
+            formData.append('questionVideo', body.questionVideo)
+          }
+          if (body.answerVideo) {
+            formData.append('answerVideo', body.answerVideo)
+          }
+          debugger
+
+          return { body: formData, method: 'POST', url: `/v1/decks/${id}/cards` }
+        },
+      }),
       createDeck: builder.mutation<CreateDeckResponse, CreateDeckArgs>({
         invalidatesTags: ['Decks'],
-        query: body => ({
-          body,
-          method: 'POST',
-          url: '/v1/decks',
-        }),
+        query: args => {
+          const formData = new FormData()
+
+          formData.append('name', args.name)
+          if (args.isPrivate) {
+            formData.append('isPrivate', args.isPrivate.toString())
+          }
+          if (args.cover) {
+            formData.append('cover', args.cover)
+          }
+
+          return {
+            body: formData,
+            method: 'POST',
+            url: `v1/decks`,
+          }
+        },
       }),
       deleteDeck: builder.mutation<CreateDeckResponse, { id: string }>({
         invalidatesTags: ['Decks'],
@@ -80,6 +118,7 @@ export const decksService = baseApi.injectEndpoints({
 })
 
 export const {
+  useCreateCardMutation,
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDeckByIdQuery,
