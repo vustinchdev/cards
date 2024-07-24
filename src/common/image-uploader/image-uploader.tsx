@@ -2,17 +2,18 @@ import { ChangeEvent, useState } from 'react'
 
 import { ImageOutline, defaultImage } from '@/assets'
 import { Typography } from '@/components'
-import { Deck } from '@/services'
+import { CardResponse, Deck } from '@/services'
 
 import s from './image-uploader.module.scss'
 
 type ImageUploaderProps = {
+  card?: CardResponse
   deck?: Deck
   handleChangeFile: (file: File | null) => void
-  imageKey: 'cover'
+  imageKey: 'answerImg' | 'cover' | 'questionImg'
 }
 
-export const ImageUploader = ({ deck, handleChangeFile, imageKey }: ImageUploaderProps) => {
+export const ImageUploader = ({ card, deck, handleChangeFile, imageKey }: ImageUploaderProps) => {
   const classNames = {
     container: s.container,
     image: s.image,
@@ -35,7 +36,15 @@ export const ImageUploader = ({ deck, handleChangeFile, imageKey }: ImageUploade
     if (file) {
       return URL.createObjectURL(file)
     }
-    if (deck && typeof deck[imageKey] === 'string') {
+    if (
+      card &&
+      (imageKey === 'answerImg' || imageKey === 'questionImg') &&
+      typeof card[imageKey] === 'string'
+    ) {
+      return card[imageKey]
+    }
+
+    if (deck && imageKey === 'cover' && typeof deck[imageKey] === 'string') {
       return deck[imageKey]
     }
 

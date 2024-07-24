@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { ImageUploader } from '@/common'
-import { DeckModalTitle, Dialog, FormCheckbox, FormInput } from '@/components'
+import { Dialog, FormCheckbox, FormInput, ModalTitle } from '@/components'
 import { deckModalFormSchema } from '@/schemas'
 import { Deck } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,7 +12,7 @@ export type DeckDataConfirm = z.infer<typeof deckModalFormSchema>
 type Props = {
   deck?: Deck
   onSubmit: (data: DeckDataConfirm) => void
-  title: DeckModalTitle
+  title: ModalTitle
 }
 
 type FieldNames = 'cover' | 'isPrivate' | 'name'

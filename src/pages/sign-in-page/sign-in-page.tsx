@@ -13,7 +13,7 @@ export const SignInPage = () => {
   const [login] = useLoginMutation()
 
   const handleSignIn = async (data: LoginArgs) => {
-    await login(data)
+    await login(data).unwrap()
     navigate('/')
   }
 

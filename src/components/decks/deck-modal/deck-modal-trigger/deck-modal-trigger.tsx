@@ -1,10 +1,10 @@
 import { Edit2Outline, TrashOutlineIcon } from '@/assets'
-import { Button, DeckModalTitle, ModalTrigger } from '@/components'
+import { Button, ModalTitle, ModalTrigger } from '@/components'
 
 import s from './deck-modal-trigger.module.scss'
 
 type Props = {
-  title: DeckModalTitle
+  title: ModalTitle
 }
 
 export const DeckModalTrigger = ({ title }: Props) => {
@@ -31,6 +31,11 @@ export const DeckModalTrigger = ({ title }: Props) => {
           <Button variant={'icon'}>
             <Edit2Outline />
           </Button>
+        </ModalTrigger>
+      )}
+      {title === 'Add New Card' && (
+        <ModalTrigger asChild>
+          <Button>Add New Card</Button>
         </ModalTrigger>
       )}
     </div>

@@ -9,11 +9,11 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@/components'
-export type DeckModalTitle = 'Add New Deck' | 'Delete Deck' | 'Edit Deck'
+export type ModalTitle = 'Add New Card' | 'Add New Deck' | 'Delete Deck' | 'Edit Deck'
 
 type Props = {
   onConfirm: () => void
-  title: DeckModalTitle
+  title: ModalTitle
 } & ModalContentContainerProps
 
 export const Dialog = ({ children, onConfirm, title }: Props) => {
