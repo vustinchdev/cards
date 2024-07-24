@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@/components'
-export type ModalTitle = 'Add New Card' | 'Add New Deck' | 'Delete Deck' | 'Edit Deck'
+export type ModalTitle = 'Add New Card' | 'Add New Deck' | 'Delete Deck' | 'Edit Card' | 'Edit Deck'
 
 type Props = {
   onConfirm: () => void

@@ -17,3 +17,9 @@ export const AddCardModal: Story = {
     title: 'Add New Card',
   },
 }
+
+export const EditCardModal: Story = {
+  args: {
+    title: 'Edit Card',
+  },
+}

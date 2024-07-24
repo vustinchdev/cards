@@ -26,7 +26,7 @@ export const DeckModalTrigger = ({ title }: Props) => {
           </Button>
         </ModalTrigger>
       )}
-      {title === 'Edit Deck' && (
+      {(title === 'Edit Deck' || title === 'Edit Card') && (
         <ModalTrigger asChild>
           <Button variant={'icon'}>
             <Edit2Outline />
