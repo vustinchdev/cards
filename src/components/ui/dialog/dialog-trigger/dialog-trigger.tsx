@@ -1,7 +1,7 @@
 import { Edit2Outline, TrashOutlineIcon } from '@/assets'
 import { Button, ModalTitle, ModalTrigger } from '@/components'
 
-import s from './deck-modal-trigger.module.scss'
+import s from './dialog-trigger.module.scss'
 
 type Props = {
   title: ModalTitle

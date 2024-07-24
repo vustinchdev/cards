@@ -1,2 +1,2 @@
 export * from './deck-modal'
-export * from './deck-modal-trigger'
+export * from '../../ui/dialog/dialog-trigger'
