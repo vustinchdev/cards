@@ -55,6 +55,7 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
     columnTitle: s.columnTitle,
     cover: s.cover,
     deck: s.deck,
+    deckName: s.deckName,
     descIcon: clsx(sortOrder === 'desc' && s.descIcon),
   }
   const { data: meData } = useMeQuery()
@@ -109,7 +110,11 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
                   {deck.cover && (
                     <img alt={'image of deck'} className={classNames.cover} src={deck.cover} />
                   )}
-                  <Typography as={Link} to={`decks/${deck.id}/cards`}>
+                  <Typography
+                    as={Link}
+                    className={classNames.deckName}
+                    to={`decks/${deck.id}/cards`}
+                  >
                     {deck.name}
                   </Typography>
                 </div>

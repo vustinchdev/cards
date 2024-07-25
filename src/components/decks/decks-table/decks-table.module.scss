@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.deckName {
+  color: var(--color-light-100);
+  text-decoration: none;
+}
+
 .descIcon {
   transform: rotate(180deg);
 }
