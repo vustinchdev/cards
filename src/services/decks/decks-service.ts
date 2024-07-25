@@ -41,7 +41,6 @@ export const decksService = baseApi.injectEndpoints({
           if (body.answerVideo) {
             formData.append('answerVideo', body.answerVideo)
           }
-          debugger
 
           return { body: formData, method: 'POST', url: `/v1/decks/${id}/cards` }
         },

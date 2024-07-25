@@ -7,8 +7,11 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components/ui'
-import { CardResponse } from '@/services'
+import { CardResponse, CreateCardArgs } from '@/services'
+import { useUpdateCardMutation } from '@/services/cards/cards.service'
 import { formatDate } from '@/utils'
+
+import { CardModal } from '../card-modal'
 
 type Props = {
   cards: CardResponse[]
@@ -23,12 +26,17 @@ type TableColumnNameItem = {
 }
 
 export const CardsTable = ({ cards, isMyDeck }: Props) => {
+  const [updateCard] = useUpdateCardMutation()
   const columns: TableColumnNameItem[] = [
     { accessor: 'question', title: 'Question' },
     { accessor: 'answer', title: 'Answer' },
     { accessor: 'updated', title: 'Last Updated' },
     { accessor: 'grade', title: 'Grade' },
   ]
+
+  const handleEditCard = (id: string, body: Omit<CreateCardArgs, 'id'>) => {
+    updateCard({ id, ...body })
+  }
 
   if (isMyDeck) {
     columns.push({ accessor: 'buttons', title: '' })
@@ -53,7 +61,11 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
               <TableBodyCell>
                 <Grade maxGrade={5} value={card.grade} />
               </TableBodyCell>
-              {isMyDeck && <TableBodyCell></TableBodyCell>}
+              {isMyDeck && (
+                <TableBodyCell>
+                  <CardModal onSubmit={body => handleEditCard(card.id, body)} title={'Edit Card'} />
+                </TableBodyCell>
+              )}
             </TableRow>
           )
         })}
