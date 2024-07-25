@@ -63,7 +63,11 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
               </TableBodyCell>
               {isMyDeck && (
                 <TableBodyCell>
-                  <CardModal onSubmit={body => handleEditCard(card.id, body)} title={'Edit Card'} />
+                  <CardModal
+                    card={card}
+                    onSubmit={body => handleEditCard(card.id, body)}
+                    title={'Edit Card'}
+                  />
                 </TableBodyCell>
               )}
             </TableRow>
