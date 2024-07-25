@@ -62,9 +62,12 @@ export const DecksPage = () => {
 
   useEffect(() => {
     if (minMaxCardsCountData) {
-      setCardsCount([minMaxCardsCountData?.min, minMaxCardsCountData?.max])
+      setCardsCount([
+        minCardsCount ?? minMaxCardsCountData?.min,
+        maxCardsCount ?? minMaxCardsCountData?.max,
+      ])
     }
-  }, [minMaxCardsCountData])
+  }, [minMaxCardsCountData, minCardsCount, maxCardsCount])
 
   const decks = decksData?.items
   const totalItemsCount = decksData?.pagination.totalItems || 0
