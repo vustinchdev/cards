@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import {
   DeckModalTrigger,
   Modal,
@@ -12,24 +10,23 @@ import {
 export type ModalTitle = 'Add New Card' | 'Add New Deck' | 'Delete Deck' | 'Edit Card' | 'Edit Deck'
 
 type Props = {
+  isOpen: boolean
   onConfirm: () => void
+  onOpenChange: (isOpen: boolean) => void
   title: ModalTitle
 } & ModalContentContainerProps
 
-export const Dialog = ({ children, onConfirm, title }: Props) => {
-  const [isOpen, setIsOpen] = useState(false)
-
+export const Dialog = ({ children, isOpen, onConfirm, onOpenChange, title }: Props) => {
   const handleCancel = () => {
-    setIsOpen(false)
+    onOpenChange(false)
   }
 
   const handleDataConfirm = () => {
     onConfirm()
-    setIsOpen(false)
   }
 
   return (
-    <Modal onOpenChange={setIsOpen} open={isOpen}>
+    <Modal onOpenChange={onOpenChange} open={isOpen}>
       <DeckModalTrigger title={title} />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>

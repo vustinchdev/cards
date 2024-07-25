@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ImageUploader } from '@/common'
@@ -18,7 +19,8 @@ type Props = {
 }
 
 export const CardModal = ({ card, onSubmit, title }: Props) => {
-  const { control, handleSubmit, setValue } = useForm<CardDataConfrim>({
+  const [isOpen, setIsOpen] = useState(false)
+  const { control, handleSubmit, reset, setValue } = useForm<CardDataConfrim>({
     defaultValues: {
       answer: card?.answer ? card.answer : '',
       answerImg: null,
@@ -29,6 +31,8 @@ export const CardModal = ({ card, onSubmit, title }: Props) => {
   })
   const handleDataConfirm = handleSubmit(data => {
     onSubmit(data)
+    setIsOpen(false)
+    reset()
   })
 
   const handleFileChange = (fieldName: FieldNames) => (file: File | null) => {
@@ -36,8 +40,8 @@ export const CardModal = ({ card, onSubmit, title }: Props) => {
   }
 
   return (
-    <Dialog onConfirm={handleDataConfirm} title={title}>
-      <form>
+    <Dialog isOpen={isOpen} onConfirm={handleDataConfirm} onOpenChange={setIsOpen} title={title}>
+      <form onSubmit={handleDataConfirm}>
         <Typography variant={'subtitle2'}>Question:</Typography>
         <FormInput control={control} label={'Question'} name={'question'} />
         <ImageUploader

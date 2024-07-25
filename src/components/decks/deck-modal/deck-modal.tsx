@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ImageUploader } from '@/common'
@@ -18,7 +19,8 @@ type Props = {
 type FieldNames = 'cover' | 'isPrivate' | 'name'
 
 export const DeckModal = ({ deck, onSubmit, title }: Props) => {
-  const { control, handleSubmit, setValue } = useForm<DeckDataConfirm>({
+  const [isOpen, setIsOpen] = useState(false)
+  const { control, handleSubmit, reset, setValue } = useForm<DeckDataConfirm>({
     defaultValues: {
       isPrivate: deck?.isPrivate ? deck?.isPrivate : false,
       name: deck?.name ?? '',
@@ -28,6 +30,8 @@ export const DeckModal = ({ deck, onSubmit, title }: Props) => {
 
   const handleDataConfirm = handleSubmit(data => {
     onSubmit(data)
+    setIsOpen(false)
+    reset()
   })
 
   const handleFileChange = (fieldName: FieldNames) => (file: File | null) => {
@@ -35,7 +39,7 @@ export const DeckModal = ({ deck, onSubmit, title }: Props) => {
   }
 
   return (
-    <Dialog onConfirm={handleDataConfirm} title={title}>
+    <Dialog isOpen={isOpen} onConfirm={handleDataConfirm} onOpenChange={setIsOpen} title={title}>
       <form onSubmit={handleDataConfirm}>
         <FormInput control={control} label={'Deck Name'} name={'name'} />
         <ImageUploader
