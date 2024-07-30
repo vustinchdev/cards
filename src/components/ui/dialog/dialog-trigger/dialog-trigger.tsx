@@ -19,7 +19,7 @@ export const DeckModalTrigger = ({ title }: Props) => {
           <Button>Add New Deck</Button>
         </ModalTrigger>
       )}
-      {title === 'Delete Deck' && (
+      {(title === 'Delete Deck' || title === 'Delete Card') && (
         <ModalTrigger asChild>
           <Button variant={'icon'}>
             <TrashOutlineIcon />

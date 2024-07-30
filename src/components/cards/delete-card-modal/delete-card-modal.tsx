@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
 import { Dialog, Typography } from '@/components'
-import { Deck } from '@/services'
+import { CardResponse } from '@/services'
 
 type Props = {
-  deck: Deck
+  card?: CardResponse
   onConfirm: () => void
 }
 
-export const DeleteDeckModal = ({ deck, onConfirm }: Props) => {
+export const DeleteCardModal = ({ card, onConfirm }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const handleDataConfirm = () => {
     onConfirm()
@@ -20,9 +20,11 @@ export const DeleteDeckModal = ({ deck, onConfirm }: Props) => {
       isOpen={isOpen}
       onConfirm={handleDataConfirm}
       onOpenChange={setIsOpen}
-      title={'Delete Deck'}
+      title={'Delete Card'}
     >
-      <Typography>Do you really want to remove {deck.name}? All cards will be deleted.</Typography>
+      <Typography>
+        Do you really want to remove {card?.question}? All cards will be deleted.
+      </Typography>
     </Dialog>
   )
 }
