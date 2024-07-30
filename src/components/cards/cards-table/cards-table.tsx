@@ -1,4 +1,6 @@
 import {
+  CardModal,
+  DeleteCardModal,
   Grade,
   Table,
   TableBody,
@@ -6,12 +8,14 @@ import {
   TableHead,
   TableHeadCell,
   TableRow,
-} from '@/components/ui'
-import { CardResponse, CreateCardArgs } from '@/services'
-import { useUpdateCardMutation } from '@/services/cards/cards.service'
+} from '@/components'
+import {
+  CardResponse,
+  CreateCardArgs,
+  useDeleteCardMutation,
+  useUpdateCardMutation,
+} from '@/services'
 import { formatDate } from '@/utils'
-
-import { CardModal } from '../card-modal'
 
 type Props = {
   cards: CardResponse[]
@@ -27,6 +31,7 @@ type TableColumnNameItem = {
 
 export const CardsTable = ({ cards, isMyDeck }: Props) => {
   const [updateCard] = useUpdateCardMutation()
+  const [deleteCard] = useDeleteCardMutation()
   const columns: TableColumnNameItem[] = [
     { accessor: 'question', title: 'Question' },
     { accessor: 'answer', title: 'Answer' },
@@ -36,6 +41,10 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
 
   const handleEditCard = (id: string, body: Omit<CreateCardArgs, 'id'>) => {
     updateCard({ id, ...body })
+  }
+
+  const handleDeleteCard = (id: string) => () => {
+    deleteCard({ id })
   }
 
   if (isMyDeck) {
@@ -68,6 +77,7 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
                     onSubmit={body => handleEditCard(card.id, body)}
                     title={'Edit Card'}
                   />
+                  <DeleteCardModal card={card} onConfirm={handleDeleteCard(card.id)} />
                 </TableBodyCell>
               )}
             </TableRow>

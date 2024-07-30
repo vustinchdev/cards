@@ -22,9 +22,7 @@ export const DeleteCardModal = ({ card, onConfirm }: Props) => {
       onOpenChange={setIsOpen}
       title={'Delete Card'}
     >
-      <Typography>
-        Do you really want to remove {card?.question}? All cards will be deleted.
-      </Typography>
+      <Typography>Do you really want to remove {card?.question}?</Typography>
     </Dialog>
   )
 }
