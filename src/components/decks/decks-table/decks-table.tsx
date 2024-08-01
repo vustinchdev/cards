@@ -134,11 +134,7 @@ export const DecksTable = ({ decks, onSortChange, sortColumn, sortOrder }: Props
                         onSubmit={body => handleUpdateDeck({ id: deck.id, ...body })}
                         title={'Edit Deck'}
                       />
-                      <DeleteDeckModal
-                        deck={deck}
-                        onConfirm={handleDeleteDeck(deck.id)}
-                        title={'Delete Deck'}
-                      />
+                      <DeleteDeckModal deck={deck} onConfirm={handleDeleteDeck(deck.id)} />
                     </>
                   )}
                 </div>

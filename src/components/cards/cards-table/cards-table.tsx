@@ -2,6 +2,7 @@ import {
   CardModal,
   DeleteCardModal,
   Grade,
+  SortOrder,
   Table,
   TableBody,
   TableBodyCell,
@@ -20,6 +21,9 @@ import { formatDate } from '@/utils'
 type Props = {
   cards: CardResponse[]
   isMyDeck: boolean
+  onSortChange: (column: CardsTableColumns, sortOrder: SortOrder) => void
+  sortColumn: string
+  sortOrder: string
 }
 
 type TableContentItem = 'answer' | 'buttons' | 'grade' | 'question' | 'updated'
@@ -29,7 +33,9 @@ type TableColumnNameItem = {
   title: string
 }
 
-export const CardsTable = ({ cards, isMyDeck }: Props) => {
+export type CardsTableColumns = 'answer' | 'buttons' | 'grade' | 'question' | 'updated'
+
+export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrder }: Props) => {
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
   const columns: TableColumnNameItem[] = [
@@ -47,6 +53,19 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
     deleteCard({ id })
   }
 
+  const handleChangeSort = (field: CardsTableColumns) => () => {
+    if (field === 'buttons') {
+      return
+    }
+    let newSortOrder: SortOrder = 'asc'
+
+    if (field === sortColumn) {
+      newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc'
+    }
+
+    onSortChange(field, newSortOrder)
+  }
+
   if (isMyDeck) {
     columns.push({ accessor: 'buttons', title: '' })
   }
@@ -56,7 +75,11 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
       <TableHead>
         <TableRow>
           {columns.map(column => {
-            return <TableHeadCell key={column.accessor}>{column.title}</TableHeadCell>
+            return (
+              <TableHeadCell key={column.accessor} onClick={handleChangeSort(column.accessor)}>
+                {column.title}
+              </TableHeadCell>
+            )
           })}
         </TableRow>
       </TableHead>
